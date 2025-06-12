@@ -2,8 +2,10 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Post, Category } from '@/types/microcms';
 import { generateArticleUrl } from '@/lib/articleUrl';
+import DateDisplay from './DateDisplay';
 
 interface SidebarProps {
   categories: Category[];
@@ -22,7 +24,7 @@ export default function Sidebar({ categories, postId }: SidebarProps) {
         setLoading(true);
         const response = await fetch(`/api/related-posts?postId=${postId}`);
         if (!response.ok) {
-          throw new Error('Failed to fetch related posts');
+          throw new Error(`Failed to fetch related posts: ${response.status}`);
         }
         const data = await response.json();
         setRelatedPosts(data.contents);
@@ -52,16 +54,25 @@ export default function Sidebar({ categories, postId }: SidebarProps) {
                 <Link
                   key={post.id}
                   href={generateArticleUrl(post)}
-                  className="block hover:bg-gray-50 p-2 rounded transition-colors"
+                  className="block hover:bg-gray-50 py-1 rounded transition-colors"
                 >
                   <div className="flex items-start space-x-3">
+                    <div className="w-20 h-16 relative flex-shrink-0">
+                      <Image
+                        src={post.eyecatch?.url || '/no-image.png'}
+                        alt={post.title}
+                        fill
+                        className="object-cover rounded"
+                      />
+                    </div>
                     <div className="flex-1 min-w-0">
                       <h3 className="text-sm font-medium text-gray-950 line-clamp-2">
                         {post.title}
                       </h3>
-                      <p className="text-xs text-gray-500 mt-1">
-                        {new Date(post.publishedAt).toLocaleDateString('ja-JP')}
-                      </p>
+                      <DateDisplay
+                        date={post.publishedAt}
+                        className="text-xs text-gray-500 mt-1"
+                      />
                     </div>
                   </div>
                 </Link>

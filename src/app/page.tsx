@@ -1,7 +1,5 @@
 import { fetchPosts, fetchCategories } from '@/lib/microcms';
-import Sidebar from '@/components/Sidebar';
-import ArticleList from '@/components/ArticleList';
-import Pagination from '@/components/Pagination';
+import ArticleLayout from '@/components/ArticleLayout';
 
 // Next.js App RouterのPageProps型を利用
 interface PageProps {
@@ -22,17 +20,13 @@ export default async function Home({ searchParams }: PageProps) {
   const totalPages = Math.ceil(postsData.totalCount / limit);
 
   return (
-    <div className="flex flex-col lg:flex-row gap-8">
-      <div className="flex-1">
-        <h1 className="text-2xl font-bold text-gray-950 mb-6">最新記事</h1>
-        <ArticleList posts={postsData.contents} />
-        <Pagination
-          currentPage={currentPage}
-          totalPages={totalPages}
-          basePath="/"
-        />
-      </div>
-      <Sidebar categories={categoriesData.contents} />
-    </div>
+    <ArticleLayout
+      title="最新記事"
+      posts={postsData.contents}
+      categories={categoriesData.contents}
+      currentPage={currentPage}
+      totalPages={totalPages}
+      basePath="/"
+    />
   );
 }

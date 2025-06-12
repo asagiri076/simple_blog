@@ -1,9 +1,7 @@
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import { fetchPosts, fetchCategories } from '@/lib/microcms';
-import Sidebar from '@/components/Sidebar';
-import ArticleList from '@/components/ArticleList';
-import Pagination from '@/components/Pagination';
+import ArticleLayout from '@/components/ArticleLayout';
 
 // Next.js App RouterのPageProps型を利用
 interface PageProps {
@@ -38,23 +36,15 @@ export default async function TagPage({ params, searchParams }: PageProps) {
     const totalPages = Math.ceil(postsData.totalCount / limit);
 
     return (
-      <div className="flex flex-col lg:flex-row gap-8">
-        <div className="flex-1">
-          <div className="mb-6">
-            <span className="text-sm text-gray-500">タグ</span>
-            <h1 className="text-2xl font-bold text-gray-950">
-              {currentCategory.name}
-            </h1>
-          </div>
-          <ArticleList posts={postsData.contents} />
-          <Pagination
-            currentPage={currentPage}
-            totalPages={totalPages}
-            basePath={`/tag/${tagId}`}
-          />
-        </div>
-        <Sidebar categories={categoriesData.contents} />
-      </div>
+      <ArticleLayout
+        title={currentCategory.name}
+        subtitle="タグ"
+        posts={postsData.contents}
+        categories={categoriesData.contents}
+        currentPage={currentPage}
+        totalPages={totalPages}
+        basePath={`/tag/${tagId}`}
+      />
     );
   } catch (error) {
     console.error('Error fetching tag page data:', error);

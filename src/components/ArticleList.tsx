@@ -2,6 +2,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Post } from '@/types/microcms';
 import { generateArticleUrl } from '@/lib/articleUrl';
+import CategoryTags from './CategoryTags';
+import DateDisplay from './DateDisplay';
 
 interface ArticleListProps {
   posts: Post[];
@@ -38,19 +40,11 @@ export default function ArticleList({ posts }: ArticleListProps) {
                   {post.excerpt}
                 </p>
                 <div className="flex items-center justify-between">
-                  <div className="flex flex-wrap gap-2">
-                    {post.categories && post.categories.map((cat) => (
-                      <span
-                        key={cat.id}
-                        className="inline-block px-2 py-1 text-xs bg-blue-100 text-blue-800 rounded"
-                      >
-                        {cat.name}
-                      </span>
-                    ))}
-                  </div>
-                  <time className="text-sm text-gray-500">
-                    {new Date(post.publishedAt).toLocaleDateString('ja-JP')}
-                  </time>
+                  <CategoryTags categories={post.categories} variant="list" />
+                  <DateDisplay 
+                    date={post.publishedAt} 
+                    className="text-sm text-gray-500" 
+                  />
                 </div>
               </div>
             </div>

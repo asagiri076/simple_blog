@@ -26,7 +26,13 @@ export async function fetchPosts(params?: FetchPostsParams): Promise<MicroCMSLis
   const response = await fetch(url, { headers });
   
   if (!response.ok) {
-    throw new Error(`Failed to fetch posts: ${response.status}`);
+    console.error('microCMS API Error:', {
+      status: response.status,
+      statusText: response.statusText,
+      url: url,
+      headers: headers
+    });
+    throw new Error(`Failed to fetch posts: ${response.status} ${response.statusText}`);
   }
   
   return response.json();
