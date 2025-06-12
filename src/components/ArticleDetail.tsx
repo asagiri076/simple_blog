@@ -1,6 +1,7 @@
 import { Post, Category } from '@/types/microcms'
 import ArticleHeader from './ArticleHeader'
 import Sidebar from './Sidebar'
+import CodeHighlighter from './CodeHighlighter'
 
 interface ArticleDetailProps {
   post: Post
@@ -15,11 +16,8 @@ export default function ArticleDetail({ post, categories }: ArticleDetailProps) 
           <article className="bg-gradient-to-br from-white to-gray-50/30 rounded-xl shadow-xl border border-gray-200/50 overflow-hidden backdrop-blur-sm">
             <ArticleHeader post={post} />
             
-            <div className="px-8 pb-8">
-              <div 
-                className="prose prose-lg max-w-none prose-headings:text-primary-800 prose-links:text-secondary-600 prose-links:hover:text-secondary-700 prose-blockquote:border-l-primary-400 prose-blockquote:bg-primary-50/50"
-                dangerouslySetInnerHTML={{ __html: post.contents }}
-              />
+            <div className="px-8 pb-12">
+              <CodeHighlighter content={post.contents} />
             </div>
           </article>
         </main>

@@ -46,10 +46,12 @@ export default function ArticleHeader({ post }: ArticleHeaderProps) {
           </div>
           
           {post.excerpt && (
-            <div className="bg-gradient-to-r from-primary-50 to-secondary-50 border-l-4 border-gradient-to-b border-primary-400 pl-6 pr-4 py-4 rounded-r-lg mb-6">
-              <p className="text-gray-700 text-lg leading-relaxed font-medium italic">
+            <div className="relative bg-gradient-to-r from-primary-50 to-secondary-50 border-l-4 border-primary-400 pl-6 pr-4 py-5 rounded-r-lg mb-8 shadow-sm">
+              <div className="absolute top-2 left-2 text-primary-300 text-2xl">"</div>
+              <p className="text-gray-700 text-lg leading-relaxed font-medium italic pl-4">
                 {post.excerpt}
               </p>
+              <div className="absolute bottom-2 right-4 text-secondary-300 text-2xl rotate-180">"</div>
             </div>
           )}
         </header>

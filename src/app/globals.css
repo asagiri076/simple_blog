@@ -47,50 +47,266 @@
 
 @layer components {
   .prose {
-    @apply text-gray-950 leading-7;
+    @apply text-gray-900 leading-8 text-lg;
   }
   
   .prose h1 {
-    @apply text-2xl font-bold mt-8 mb-4;
+    @apply text-3xl font-bold mt-12 mb-6 relative;
+    background: linear-gradient(135deg, theme('colors.primary.700'), theme('colors.secondary.600'));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  .prose h1::before {
+    content: '';
+    @apply absolute -left-6 top-1/2 w-1 h-8 rounded-full;
+    background: linear-gradient(180deg, theme('colors.primary.500'), theme('colors.secondary.500'));
+    transform: translateY(-50%);
   }
   
   .prose h2 {
-    @apply text-xl font-bold mt-6 mb-3;
+    @apply text-2xl font-bold mt-10 mb-5 relative pl-4;
+    background: linear-gradient(135deg, theme('colors.primary.600'), theme('colors.secondary.500'));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  .prose h2::before {
+    content: '';
+    @apply absolute left-0 top-1/2 w-3 h-3 rounded-full;
+    background: linear-gradient(135deg, theme('colors.primary.400'), theme('colors.secondary.400'));
+    transform: translateY(-50%);
   }
   
   .prose h3 {
-    @apply text-lg font-bold mt-4 mb-2;
+    @apply text-xl font-bold mt-8 mb-4 relative pl-3;
+    color: theme('colors.primary.700');
+  }
+  
+  .prose h3::before {
+    content: '';
+    @apply absolute left-0 top-1/2 w-2 h-2 rounded-full;
+    background: theme('colors.secondary.400');
+    transform: translateY(-50%);
+  }
+  
+  .prose h4 {
+    @apply text-lg font-semibold mt-6 mb-3;
+    color: theme('colors.primary.600');
+  }
+  
+  .prose h5 {
+    @apply text-base font-semibold mt-4 mb-2;
+    color: theme('colors.primary.600');
+  }
+  
+  .prose h6 {
+    @apply text-sm font-semibold mt-4 mb-2;
+    color: theme('colors.primary.600');
   }
   
   .prose p {
-    @apply mb-4;
+    @apply mb-6 leading-8;
+  }
+  
+  .prose strong {
+    @apply font-bold px-1 py-0.5 rounded-sm relative;
+    background: linear-gradient(120deg, theme('colors.pink.200'), theme('colors.pink.300'));
+    color: theme('colors.pink.900');
+    box-shadow: 0 2px 4px theme('colors.pink.200');
+  }
+  
+  .prose em {
+    @apply italic;
+    color: theme('colors.secondary.700');
   }
   
   .prose ul {
-    @apply list-disc list-inside mb-4 space-y-1;
+    @apply list-none mb-6 space-y-2 pl-0;
+  }
+  
+  .prose ul li {
+    @apply relative pl-6;
+  }
+  
+  .prose ul li::before {
+    content: '';
+    @apply absolute left-0 top-3 w-2 h-2 rounded-full;
+    background: linear-gradient(135deg, theme('colors.primary.400'), theme('colors.secondary.400'));
   }
   
   .prose ol {
-    @apply list-decimal list-inside mb-4 space-y-1;
+    @apply list-none mb-6 space-y-2 pl-0;
+    counter-reset: custom-counter;
+  }
+  
+  .prose ol li {
+    @apply relative pl-8;
+    counter-increment: custom-counter;
+  }
+  
+  .prose ol li::before {
+    content: counter(custom-counter);
+    @apply absolute left-0 top-0 w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold text-white;
+    background: linear-gradient(135deg, theme('colors.primary.500'), theme('colors.secondary.500'));
   }
   
   .prose blockquote {
-    @apply border-l-4 border-gray-300 pl-4 italic mb-4;
+    @apply border-l-4 pl-6 pr-4 py-4 mb-6 rounded-r-lg relative;
+    border-left-color: theme('colors.primary.400');
+    background: linear-gradient(135deg, theme('colors.primary.50'), theme('colors.secondary.50'));
+  }
+  
+  .prose blockquote p {
+    @apply italic font-medium mb-0;
+    color: theme('colors.gray.700');
   }
   
   .prose code {
-    @apply bg-gray-100 px-1 py-0.5 rounded text-sm;
+    @apply px-2 py-1 rounded text-sm font-mono font-medium;
+    background: theme('colors.gray.100');
+    color: theme('colors.primary.700');
+    border: 1px solid theme('colors.gray.200');
   }
   
   .prose pre {
-    @apply bg-gray-100 p-4 rounded overflow-x-auto mb-4;
+    @apply p-4 rounded-lg mb-6 overflow-x-auto;
+    background: theme('colors.gray.900');
   }
   
-  .prose img {
-    @apply max-w-full h-auto mb-4;
+  .prose pre code {
+    @apply p-0 bg-transparent border-none text-gray-100;
   }
   
   .prose a {
-    @apply text-blue-600 hover:text-blue-800 underline;
+    @apply font-medium underline decoration-2 underline-offset-2 transition-colors;
+    color: theme('colors.secondary.600');
+    text-decoration-color: theme('colors.secondary.300');
   }
+  
+  .prose a:hover {
+    color: theme('colors.secondary.700');
+    text-decoration-color: theme('colors.secondary.500');
+  }
+  
+  .prose img {
+    @apply rounded-lg shadow-lg mb-6 mx-auto;
+  }
+  
+  .prose table {
+    @apply w-full mb-6 border-collapse border border-gray-200 rounded-lg overflow-hidden;
+  }
+  
+  .prose th {
+    @apply px-4 py-3 font-semibold text-left border-b border-gray-200;
+    background: linear-gradient(135deg, theme('colors.primary.50'), theme('colors.secondary.50'));
+    color: theme('colors.primary.800');
+  }
+  
+  .prose td {
+    @apply px-4 py-3 border-b border-gray-100;
+  }
+  
+  .prose hr {
+    @apply my-8 border-0 h-0.5 rounded-full;
+    background: linear-gradient(90deg, theme('colors.primary.300'), theme('colors.secondary.300'));
+  }
+}
+
+/* Prism.js シンタックスハイライトテーマ */
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: #6b7280;
+  font-style: italic;
+}
+
+.token.punctuation {
+  color: #d1d5db;
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol,
+.token.deleted {
+  color: #f87171;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+  color: #34d399;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+  color: #60a5fa;
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+  color: #a78bfa;
+}
+
+.token.function,
+.token.class-name {
+  color: #fbbf24;
+}
+
+.token.regex,
+.token.important,
+.token.variable {
+  color: #fb7185;
+}
+
+.token.important,
+.token.bold {
+  font-weight: bold;
+}
+
+.token.italic {
+  font-style: italic;
+}
+
+/* コードブロックのスタイル調整 */
+pre[class*="language-"] {
+  background: theme('colors.gray.900') !important;
+  color: #f9fafb !important;
+  border-radius: 8px !important;
+  margin: 24px 0 !important;
+  padding: 20px !important;
+  overflow-x: auto !important;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace !important;
+  font-size: 14px !important;
+  line-height: 1.6 !important;
+}
+
+code[class*="language-"] {
+  background: transparent !important;
+  color: inherit !important;
+  font-family: inherit !important;
+  font-size: inherit !important;
+}
+
+/* インラインコードとコードブロックの区別 */
+:not(pre) > code[class*="language-"] {
+  background: theme('colors.gray.100') !important;
+  color: theme('colors.primary.700') !important;
+  padding: 2px 6px !important;
+  border-radius: 4px !important;
+  border: 1px solid theme('colors.gray.200') !important;
+  font-size: 13px !important;
 }
