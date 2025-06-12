@@ -9,6 +9,20 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 - `npm run start` - Start production server
 - `npm run lint` - Run Next.js linting
 
+## Environment Setup
+
+Requires environment variables for microCMS integration:
+- `MICROCMS_API_KEY` - microCMS API key
+- `MICROCMS_DOMAIN` - microCMS service domain
+
+## Tech Stack
+
+- Next.js 15 with App Router
+- TypeScript
+- Tailwind CSS v4 
+- microCMS for content management
+- ESLint with Next.js and TypeScript rules
+
 ## Architecture
 
 This is a simple blog built with Next.js 15 and TypeScript, designed to integrate with microCMS for content management and use SSG (Static Site Generation).
@@ -36,5 +50,14 @@ This is a simple blog built with Next.js 15 and TypeScript, designed to integrat
 
 ### Content Structure
 Articles should include: title, featured image, publication date, tags, summary, and rich text content.
+
+### Data Layer
+- `src/lib/microcms.ts` - microCMS API client with functions for fetching posts, categories, and popular posts
+- `src/types/microcms.ts` - TypeScript interfaces for Post, Category, and API responses
+- Uses `@/` path alias for imports (configured in tsconfig.json)
+
+### API Routes
+- `/api/popular-posts` - CSR endpoint for sidebar popular posts
+- `/api/related-posts` - CSR endpoint for related posts functionality
 
 Refer to `docs/dd.md` for detailed screen design specifications.
