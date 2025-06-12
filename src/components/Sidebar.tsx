@@ -38,15 +38,18 @@ export default function Sidebar({ categories, postId }: SidebarProps) {
   }, [postId]);
 
   return (
-    <aside className="w-full lg:w-80 space-y-8">
+    <aside className="w-full lg:w-80 space-y-6">
       {postId && (
-        <div className="bg-white rounded-lg shadow-sm border p-6">
-          <h2 className="text-lg font-semibold text-gray-950 mb-4">関連記事</h2>
+        <div className="bg-gradient-to-br from-white to-primary-50/30 rounded-xl shadow-lg border border-primary-100/50 p-6 backdrop-blur-sm">
+          <h2 className="text-lg font-bold text-primary-900 mb-5 flex items-center gap-2">
+            <div className="w-1 h-5 bg-gradient-to-b from-primary-500 to-secondary-500 rounded-full"></div>
+            関連記事
+          </h2>
           {loading && (
-            <div className="text-gray-500 text-sm">読み込み中...</div>
+            <div className="text-primary-500 text-sm text-center py-4 bg-primary-50/50 rounded-lg border border-primary-100/50 animate-pulse">読み込み中...</div>
           )}
           {error && (
-            <div className="text-red-500 text-sm">関連記事の取得に失敗しました</div>
+            <div className="text-red-600 text-sm text-center py-4 bg-red-50 rounded-lg border border-red-200">関連記事の取得に失敗しました</div>
           )}
           {!loading && !error && relatedPosts.length > 0 && (
             <div className="space-y-3">
@@ -54,7 +57,7 @@ export default function Sidebar({ categories, postId }: SidebarProps) {
                 <Link
                   key={post.id}
                   href={generateArticleUrl(post)}
-                  className="block hover:bg-gray-50 py-1 rounded transition-colors"
+                  className="group block hover:bg-gradient-to-r hover:from-primary-50 hover:to-secondary-50 p-3 rounded-lg transition-all duration-300 hover:shadow-md hover:scale-[1.02]"
                 >
                   <div className="flex items-start space-x-3">
                     <div className="w-20 h-16 relative flex-shrink-0">
@@ -62,16 +65,17 @@ export default function Sidebar({ categories, postId }: SidebarProps) {
                         src={post.eyecatch?.url || '/no-image.png'}
                         alt={post.title}
                         fill
-                        className="object-cover rounded"
+                        className="object-cover rounded-lg group-hover:scale-105 transition-transform duration-300"
                       />
+                      <div className="absolute inset-0 bg-gradient-to-t from-primary-900/20 to-transparent rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     </div>
                     <div className="flex-1 min-w-0">
-                      <h3 className="text-sm font-medium text-gray-950 line-clamp-2">
+                      <h3 className="text-sm font-semibold text-gray-900 group-hover:text-primary-800 line-clamp-2 transition-colors duration-300">
                         {post.title}
                       </h3>
                       <DateDisplay
                         date={post.publishedAt}
-                        className="text-xs text-gray-500 mt-1"
+                        className="text-xs text-secondary-600 mt-2 font-medium"
                       />
                     </div>
                   </div>
@@ -80,27 +84,30 @@ export default function Sidebar({ categories, postId }: SidebarProps) {
             </div>
           )}
           {!loading && !error && relatedPosts.length === 0 && (
-            <div className="text-gray-500 text-sm">関連記事がありません</div>
+            <div className="text-primary-400 text-sm text-center py-4 bg-primary-50/50 rounded-lg border border-primary-100/50">関連記事がありません</div>
           )}
         </div>
       )}
 
-      <div className="bg-white rounded-lg shadow-sm border p-6">
-        <h2 className="text-lg font-semibold text-gray-950 mb-4">タグ</h2>
+      <div className="bg-gradient-to-br from-white to-secondary-50/30 rounded-xl shadow-lg border border-secondary-100/50 p-6 backdrop-blur-sm">
+        <h2 className="text-lg font-bold text-secondary-900 mb-5 flex items-center gap-2">
+          <div className="w-1 h-5 bg-gradient-to-b from-secondary-500 to-primary-500 rounded-full"></div>
+          タグ
+        </h2>
         {categories.length > 0 ? (
           <div className="flex flex-wrap gap-2">
             {categories.map((category) => (
               <Link
                 key={category.id}
                 href={`/tag/${category.id}`}
-                className="inline-block px-3 py-1 text-sm bg-gray-100 text-gray-700 rounded-full hover:bg-gray-200 transition-colors"
+                className="inline-block px-4 py-2 text-sm font-medium bg-gradient-to-r from-secondary-100 to-secondary-200 text-secondary-800 rounded-full hover:from-secondary-200 hover:to-secondary-300 hover:text-secondary-900 transition-all duration-300 hover:shadow-md hover:scale-105 border border-secondary-200/50"
               >
                 {category.name}
               </Link>
             ))}
           </div>
         ) : (
-          <div className="text-gray-500 text-sm">タグがありません</div>
+          <div className="text-secondary-400 text-sm text-center py-4 bg-secondary-50/50 rounded-lg border border-secondary-100/50">タグがありません</div>
         )}
       </div>
     </aside>

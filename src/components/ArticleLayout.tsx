@@ -24,10 +24,13 @@ export default function ArticleLayout({
 }: ArticleLayoutProps) {
   return (
     <div className="container mx-auto px-4 py-8">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-950 mb-2">{title}</h1>
+      <div className="mb-10">
+        <div className="flex items-center gap-3 mb-3">
+          <div className="w-2 h-8 bg-gradient-to-b from-primary-500 to-secondary-500 rounded-full"></div>
+          <h1 className="text-4xl font-bold bg-gradient-to-r from-primary-800 to-secondary-700 bg-clip-text text-transparent">{title}</h1>
+        </div>
         {subtitle && (
-          <p className="text-gray-600">{subtitle}</p>
+          <p className="text-secondary-600 font-medium ml-5">{subtitle}</p>
         )}
       </div>
       

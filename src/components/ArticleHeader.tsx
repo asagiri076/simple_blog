@@ -23,7 +23,7 @@ export default function ArticleHeader({ post }: ArticleHeaderProps) {
       
       <div className="p-8">
         <header className="mb-6">
-          <h1 className="text-3xl font-bold text-gray-950 mb-4">
+          <h1 className="text-4xl font-bold bg-gradient-to-r from-primary-800 to-secondary-700 bg-clip-text text-transparent mb-6 leading-tight">
             {post.title}
           </h1>
           
@@ -33,7 +33,7 @@ export default function ArticleHeader({ post }: ArticleHeaderProps) {
                 <Link
                   key={cat.id}
                   href={`/tag/${cat.id}`}
-                  className="inline-block px-3 py-1 text-sm bg-blue-100 text-blue-800 rounded hover:bg-blue-200 transition-colors"
+                  className="inline-block px-4 py-2 text-sm font-medium bg-gradient-to-r from-primary-100 to-primary-200 text-primary-800 rounded-full hover:from-primary-200 hover:to-primary-300 hover:scale-105 transition-all duration-300 shadow-sm border border-primary-200/50"
                 >
                   {cat.name}
                 </Link>
@@ -46,9 +46,11 @@ export default function ArticleHeader({ post }: ArticleHeaderProps) {
           </div>
           
           {post.excerpt && (
-            <p className="text-gray-600 text-lg leading-relaxed mb-6">
-              {post.excerpt}
-            </p>
+            <div className="bg-gradient-to-r from-primary-50 to-secondary-50 border-l-4 border-gradient-to-b border-primary-400 pl-6 pr-4 py-4 rounded-r-lg mb-6">
+              <p className="text-gray-700 text-lg leading-relaxed font-medium italic">
+                {post.excerpt}
+              </p>
+            </div>
           )}
         </header>
       </div>

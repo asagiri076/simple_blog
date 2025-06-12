@@ -21,22 +21,23 @@ export default function ArticleList({ posts }: ArticleListProps) {
   return (
     <div className="space-y-6">
       {posts.map((post) => (
-        <article key={post.id} className="bg-white rounded-lg shadow-sm border overflow-hidden">
-          <Link href={generateArticleUrl(post)} className="block hover:shadow-md transition-shadow">
+        <article key={post.id} className="group bg-gradient-to-br from-white to-gray-50/30 rounded-xl shadow-lg border border-gray-200/50 overflow-hidden backdrop-blur-sm">
+          <Link href={generateArticleUrl(post)} className="block hover:shadow-xl transition-all duration-300 hover:scale-[1.02]">
             <div className="flex flex-col sm:flex-row">
-                <div className="sm:w-64 h-40 relative">
+                <div className="sm:w-64 h-40 relative overflow-hidden">
                   <Image
                     src={post.eyecatch?.url ? post.eyecatch.url : '/no-image.png'}
                     alt={post.title}
                     fill
-                    className="object-cover"
+                    className="object-cover group-hover:scale-110 transition-transform duration-500"
                   />
+                  <div className="absolute inset-0 bg-gradient-to-t from-primary-900/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 </div>
               <div className="flex-1 p-6">
-                <h2 className="text-xl font-semibold text-gray-950 mb-2 line-clamp-2 min-h-[2.8em]">
+                <h2 className="text-xl font-bold text-gray-900 group-hover:text-primary-800 mb-3 line-clamp-2 min-h-[2.8em] transition-colors duration-300">
                   {post.title}
                 </h2>
-                <p className="text-gray-600 text-sm mb-3 line-clamp-3">
+                <p className="text-gray-600 group-hover:text-gray-700 text-sm mb-4 line-clamp-3 transition-colors duration-300">
                   {post.excerpt}
                 </p>
                 <div className="flex items-center justify-between">

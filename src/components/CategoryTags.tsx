@@ -17,8 +17,8 @@ export default function CategoryTags({
 
   const baseClasses = 'inline-block px-2 py-1 text-xs rounded'
   const variantClasses = {
-    list: 'bg-blue-100 text-blue-800',
-    detail: 'bg-gray-100 text-gray-700 hover:bg-gray-200 transition-colors'
+    list: 'bg-gradient-to-r from-primary-100 to-primary-200 text-primary-800 hover:from-primary-200 hover:to-primary-300 hover:scale-105 transition-all duration-300 shadow-sm',
+    detail: 'bg-gradient-to-r from-secondary-100 to-secondary-200 text-secondary-800 hover:from-secondary-200 hover:to-secondary-300 hover:scale-105 transition-all duration-300 shadow-sm'
   }
 
   return (
