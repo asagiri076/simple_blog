@@ -78,11 +78,21 @@ export async function fetchPostById(id: string): Promise<Post | null> {
   }
 }
 
-export async function fetchCategories(): Promise<MicroCMSListResponse<Category>> {
-  const response = await fetch(`${BASE_URL}/categories`, { headers });
+export async function fetchCategories(limit: number = 100): Promise<MicroCMSListResponse<Category>> {
+  // すべてのカテゴリを取得するため、デフォルトで大きなlimitを設定
+  const searchParams = new URLSearchParams();
+  searchParams.append('limit', limit.toString());
+  
+  const url = `${BASE_URL}/categories?${searchParams.toString()}`;
+  const response = await fetch(url, { headers });
   
   if (!response.ok) {
-    throw new Error(`Failed to fetch categories: ${response.status}`);
+    console.error('microCMS API Error for categories:', {
+      status: response.status,
+      statusText: response.statusText,
+      url: url
+    });
+    throw new Error(`Failed to fetch categories: ${response.status} ${response.statusText}`);
   }
   
   return response.json();
@@ -95,4 +105,49 @@ export async function fetchPopularPosts(limit: number = 5): Promise<MicroCMSList
     limit: validLimit,
     orders: '-publishedAt'
   });
+}
+
+/**
+ * カテゴリごとの記事数を取得
+ */
+export interface CategoryWithCount extends Category {
+  postCount: number;
+}
+
+export async function fetchCategoriesWithPostCount(): Promise<CategoryWithCount[]> {
+  try {
+    // すべてのカテゴリと記事を取得
+    const [categoriesData, postsData] = await Promise.all([
+      fetchCategories(),
+      fetchPosts({ limit: 1000 }) // 十分に大きなlimitで全記事を取得
+    ]);
+
+    // カテゴリごとの記事数をカウント
+    const categoryCountMap = new Map<string, number>();
+    
+    postsData.contents.forEach(post => {
+      post.categories?.forEach(category => {
+        const currentCount = categoryCountMap.get(category.id) || 0;
+        categoryCountMap.set(category.id, currentCount + 1);
+      });
+    });
+
+    // カテゴリに記事数を追加し、記事数の多い順にソート
+    const categoriesWithCount: CategoryWithCount[] = categoriesData.contents
+      .map(category => ({
+        ...category,
+        postCount: categoryCountMap.get(category.id) || 0
+      }))
+      .sort((a, b) => b.postCount - a.postCount); // 記事数の多い順
+
+    return categoriesWithCount;
+  } catch (error) {
+    console.error('Error fetching categories with post count:', error);
+    // エラー時は通常のカテゴリリストを記事数0で返す
+    const categoriesData = await fetchCategories();
+    return categoriesData.contents.map(category => ({
+      ...category,
+      postCount: 0
+    }));
+  }
 }

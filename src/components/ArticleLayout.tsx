@@ -1,4 +1,5 @@
 import { Post, Category } from '@/types/microcms'
+import { CategoryWithCount } from '@/lib/microcms'
 import ArticleList from './ArticleList'
 import Pagination from './Pagination'
 import Sidebar from './Sidebar'
@@ -7,7 +8,7 @@ interface ArticleLayoutProps {
   title: string
   subtitle?: string
   posts: Post[]
-  categories: Category[]
+  categories: Category[] | CategoryWithCount[]
   currentPage: number
   totalPages: number
   basePath: string

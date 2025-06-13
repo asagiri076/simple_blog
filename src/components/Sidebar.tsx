@@ -4,12 +4,13 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Post, Category } from '@/types/microcms';
+import { CategoryWithCount } from '@/lib/microcms';
 import { generateArticleUrl } from '@/lib/articleUrl';
 import DateDisplay from './DateDisplay';
 import { generateResponsiveImageSet } from '@/lib/imageOptimizer';
 
 interface SidebarProps {
-  categories: Category[];
+  categories: Category[] | CategoryWithCount[];
   postId?: string; // 現在の記事ID（関連記事取得用）
 }
 
@@ -110,15 +111,23 @@ export default function Sidebar({ categories, postId }: SidebarProps) {
         </h2>
         {categories.length > 0 ? (
           <div className="flex flex-wrap gap-2">
-            {categories.map((category) => (
-              <Link
-                key={category.id}
-                href={`/tag/${category.id}`}
-                className="inline-block px-4 py-2 text-sm font-medium bg-gradient-to-r from-secondary-100 to-secondary-200 text-secondary-800 rounded-full hover:from-secondary-200 hover:to-secondary-300 hover:text-secondary-900 transition-all duration-300 hover:shadow-md hover:scale-105 border border-secondary-200/50"
-              >
-                {category.name}
-              </Link>
-            ))}
+            {categories.map((category) => {
+              const categoryWithCount = category as CategoryWithCount;
+              const hasCount = 'postCount' in categoryWithCount;
+              
+              return (
+                <Link
+                  key={category.id}
+                  href={`/tag/${category.id}`}
+                  className="inline-block px-4 py-2 text-sm font-medium bg-gradient-to-r from-primary-100 to-primary-200 text-primary-800 rounded-full hover:from-primary-200 hover:to-primary-300 hover:text-primary-900 transition-all duration-300 hover:shadow-md hover:scale-105 border border-primary-200/50"
+                >
+                  {category.name}
+                  {hasCount && categoryWithCount.postCount > 0 && (
+                    <span className="ml-1 text-xs text-primary-600">({categoryWithCount.postCount})</span>
+                  )}
+                </Link>
+              );
+            })}
           </div>
         ) : (
           <div className="text-secondary-400 text-sm text-center py-4 bg-secondary-50/50 rounded-lg border border-secondary-100/50">タグがありません</div>

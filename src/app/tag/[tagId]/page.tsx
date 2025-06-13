@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
-import { fetchPosts, fetchCategories } from '@/lib/microcms';
+import { fetchPosts, fetchCategories, fetchCategoriesWithPostCount } from '@/lib/microcms';
 import ArticleLayout from '@/components/ArticleLayout';
 
 // Next.js App RouterのPageProps型を利用
@@ -24,10 +24,10 @@ export default async function TagPage({ params, searchParams }: PageProps) {
         orders: '-publishedAt',
         filters: `categories[contains]${tagId}`
       }),
-      fetchCategories()
+      fetchCategoriesWithPostCount()
     ]);
 
-    const currentCategory = categoriesData.contents.find(cat => cat.id === tagId);
+    const currentCategory = categoriesData.find(cat => cat.id === tagId);
     
     if (!currentCategory) {
       notFound();
@@ -40,7 +40,7 @@ export default async function TagPage({ params, searchParams }: PageProps) {
         title={currentCategory.name}
         subtitle="タグ"
         posts={postsData.contents}
-        categories={categoriesData.contents}
+        categories={categoriesData}
         currentPage={currentPage}
         totalPages={totalPages}
         basePath={`/tag/${tagId}`}

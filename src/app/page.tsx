@@ -1,4 +1,4 @@
-import { fetchPosts, fetchCategories } from '@/lib/microcms';
+import { fetchPosts, fetchCategoriesWithPostCount } from '@/lib/microcms';
 import ArticleLayout from '@/components/ArticleLayout';
 
 // Next.js App RouterのPageProps型を利用
@@ -14,7 +14,7 @@ export default async function Home({ searchParams }: PageProps) {
 
   const [postsData, categoriesData] = await Promise.all([
     fetchPosts({ limit, offset, orders: '-publishedAt' }),
-    fetchCategories()
+    fetchCategoriesWithPostCount()
   ]);
 
   const totalPages = Math.ceil(postsData.totalCount / limit);
@@ -23,7 +23,7 @@ export default async function Home({ searchParams }: PageProps) {
     <ArticleLayout
       title="最新記事"
       posts={postsData.contents}
-      categories={categoriesData.contents}
+      categories={categoriesData}
       currentPage={currentPage}
       totalPages={totalPages}
       basePath="/"
