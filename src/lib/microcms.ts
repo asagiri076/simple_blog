@@ -13,13 +13,13 @@ const headers = {
   'Content-Type': 'application/json',
 };
 
-export async function fetchPosts(params?: FetchPostsParams): Promise<MicroCMSListResponse<Post>> {
+export async function fetchPosts(params: FetchPostsParams = {}): Promise<MicroCMSListResponse<Post>> {
   const searchParams = new URLSearchParams();
   
-  if (params?.limit) searchParams.append('limit', params.limit.toString());
-  if (params?.offset) searchParams.append('offset', params.offset.toString());
-  if (params?.filters) searchParams.append('filters', params.filters);
-  if (params?.orders) searchParams.append('orders', params.orders);
+  if (params.limit && params.limit > 0) searchParams.append('limit', params.limit.toString());
+  if (params.offset && params.offset >= 0) searchParams.append('offset', params.offset.toString());
+  if (params.filters && params.filters.trim()) searchParams.append('filters', params.filters);
+  if (params.orders && params.orders.trim()) searchParams.append('orders', params.orders);
 
   const url = `${BASE_URL}/posts${searchParams.toString() ? `?${searchParams.toString()}` : ''}`;
   
@@ -49,6 +49,10 @@ export async function fetchPost(id: string): Promise<Post> {
 }
 
 export async function fetchPostByWpId(wpId: number): Promise<Post | null> {
+  if (!Number.isInteger(wpId) || wpId <= 0) {
+    return null;
+  }
+  
   try {
     const wpIdFilter = `wp_id[equals]${wpId}`;
     const response = await fetchPosts({ 
@@ -63,8 +67,12 @@ export async function fetchPostByWpId(wpId: number): Promise<Post | null> {
 }
 
 export async function fetchPostById(id: string): Promise<Post | null> {
+  if (!id || !id.trim()) {
+    return null;
+  }
+  
   try {
-    return await fetchPost(id);
+    return await fetchPost(id.trim());
   } catch {
     return null;
   }
@@ -81,8 +89,10 @@ export async function fetchCategories(): Promise<MicroCMSListResponse<Category>>
 }
 
 export async function fetchPopularPosts(limit: number = 5): Promise<MicroCMSListResponse<Post>> {
+  const validLimit = Math.max(1, Math.min(limit, 100)); // Clamp between 1 and 100
+  
   return fetchPosts({
-    limit,
+    limit: validLimit,
     orders: '-publishedAt'
   });
 }

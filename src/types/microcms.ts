@@ -42,3 +42,12 @@ export interface FetchPostsParams {
   filters?: string;
   orders?: string;
 }
+
+export interface ApiResponse<T> {
+  contents: T[];
+}
+
+export interface ApiErrorResponse {
+  error: string;
+  message?: string;
+}

@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
-import { fetchPost, fetchPosts, fetchCategories, fetchPostByWpId, fetchPostById } from '@/lib/microcms';
+import { fetchPosts, fetchCategories, fetchPostByWpId, fetchPostById } from '@/lib/microcms';
 import { getArticleId, extractYearMonth, parseArticleIdType } from '@/lib/articleUrl';
 import ArticleDetail from '@/components/ArticleDetail';
 

@@ -6,6 +6,7 @@ import Image from 'next/image';
 import { Post, Category } from '@/types/microcms';
 import { generateArticleUrl } from '@/lib/articleUrl';
 import DateDisplay from './DateDisplay';
+import { generateResponsiveImageSet } from '@/lib/imageOptimizer';
 
 interface SidebarProps {
   categories: Category[];
@@ -61,12 +62,25 @@ export default function Sidebar({ categories, postId }: SidebarProps) {
                 >
                   <div className="flex items-start space-x-3">
                     <div className="w-20 h-16 relative flex-shrink-0">
-                      <Image
-                        src={post.eyecatch?.url || '/no-image.png'}
-                        alt={post.title}
-                        fill
-                        className="object-cover rounded-lg group-hover:scale-105 transition-transform duration-300"
-                      />
+                      {post.eyecatch?.url ? (() => {
+                        const imageSet = generateResponsiveImageSet(post.eyecatch.url, 'sidebar', 'auto');
+                        return (
+                          <Image
+                            src={imageSet.src}
+                            alt={post.title}
+                            fill
+                            className="object-cover rounded-lg group-hover:scale-105 transition-transform duration-300"
+                            sizes={imageSet.sizes}
+                          />
+                        );
+                      })() : (
+                        <Image
+                          src="/no-image.png"
+                          alt={post.title}
+                          fill
+                          className="object-cover rounded-lg group-hover:scale-105 transition-transform duration-300"
+                        />
+                      )}
                       <div className="absolute inset-0 bg-gradient-to-t from-primary-900/20 to-transparent rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     </div>
                     <div className="flex-1 min-w-0">

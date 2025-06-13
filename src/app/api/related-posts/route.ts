@@ -1,10 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { fetchPosts, fetchPost, fetchPostByWpId, fetchPostById } from '@/lib/microcms';
-import { Post } from '@/types/microcms';
+import { fetchPosts, fetchPostByWpId, fetchPostById } from '@/lib/microcms';
+import { Post, ApiResponse, ApiErrorResponse } from '@/types/microcms';
 import { parseArticleIdType } from '@/lib/articleUrl';
 
+export const dynamic = 'force-dynamic';
+
 // /api/related-posts?postId=xxxx&limit=5
-export async function GET(req: NextRequest) {
+export async function GET(req: NextRequest): Promise<NextResponse<ApiResponse<Post> | ApiErrorResponse>> {
   const { searchParams } = new URL(req.url);
   const postId = searchParams.get('postId');
   const limit = Number(searchParams.get('limit') || 5);

@@ -2,6 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Post } from '@/types/microcms'
 import DateDisplay from './DateDisplay'
+import { generateResponsiveImageSet } from '@/lib/imageOptimizer'
 
 interface ArticleHeaderProps {
   post: Post
@@ -12,12 +13,19 @@ export default function ArticleHeader({ post }: ArticleHeaderProps) {
     <>
       {post.eyecatch && (
         <div className="relative h-64 sm:h-80 lg:h-96 w-full">
-          <Image
-            src={post.eyecatch.url}
-            alt={post.title}
-            fill
-            className="object-cover"
-          />
+          {(() => {
+            const imageSet = generateResponsiveImageSet(post.eyecatch.url, 'articleHeader', 'auto');
+            return (
+              <Image
+                src={imageSet.src}
+                alt={post.title}
+                fill
+                className="object-cover"
+                sizes={imageSet.sizes}
+                priority
+              />
+            );
+          })()}
         </div>
       )}
       
@@ -47,11 +55,11 @@ export default function ArticleHeader({ post }: ArticleHeaderProps) {
           
           {post.excerpt && (
             <div className="relative bg-gradient-to-r from-primary-50 to-secondary-50 border-l-4 border-primary-400 pl-6 pr-4 py-5 rounded-r-lg mb-8 shadow-sm">
-              <div className="absolute top-2 left-2 text-primary-300 text-2xl">"</div>
+              <div className="absolute top-2 left-2 text-primary-300 text-2xl">&ldquo;</div>
               <p className="text-gray-700 text-lg leading-relaxed font-medium italic pl-4">
                 {post.excerpt}
               </p>
-              <div className="absolute bottom-2 right-4 text-secondary-300 text-2xl rotate-180">"</div>
+              <div className="absolute bottom-2 right-4 text-secondary-300 text-2xl rotate-180">&rdquo;</div>
             </div>
           )}
         </header>

@@ -4,6 +4,7 @@ import { Post } from '@/types/microcms';
 import { generateArticleUrl } from '@/lib/articleUrl';
 import CategoryTags from './CategoryTags';
 import DateDisplay from './DateDisplay';
+import { generateResponsiveImageSet } from '@/lib/imageOptimizer';
 
 interface ArticleListProps {
   posts: Post[];
@@ -25,12 +26,25 @@ export default function ArticleList({ posts }: ArticleListProps) {
           <Link href={generateArticleUrl(post)} className="block hover:shadow-xl transition-all duration-300 hover:scale-[1.02]">
             <div className="flex flex-col sm:flex-row">
                 <div className="sm:w-64 h-40 relative overflow-hidden">
-                  <Image
-                    src={post.eyecatch?.url ? post.eyecatch.url : '/no-image.png'}
-                    alt={post.title}
-                    fill
-                    className="object-cover group-hover:scale-110 transition-transform duration-500"
-                  />
+                  {post.eyecatch?.url ? (() => {
+                    const imageSet = generateResponsiveImageSet(post.eyecatch.url, 'articleList', 'auto');
+                    return (
+                      <Image
+                        src={imageSet.src}
+                        alt={post.title}
+                        fill
+                        className="object-cover group-hover:scale-110 transition-transform duration-500"
+                        sizes={imageSet.sizes}
+                      />
+                    );
+                  })() : (
+                    <Image
+                      src="/no-image.png"
+                      alt={post.title}
+                      fill
+                      className="object-cover group-hover:scale-110 transition-transform duration-500"
+                    />
+                  )}
                   <div className="absolute inset-0 bg-gradient-to-t from-primary-900/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 </div>
               <div className="flex-1 p-6">
