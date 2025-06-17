@@ -116,16 +116,28 @@ export interface CategoryWithCount extends Category {
 
 export async function fetchCategoriesWithPostCount(): Promise<CategoryWithCount[]> {
   try {
-    // すべてのカテゴリと記事を取得
-    const [categoriesData, postsData] = await Promise.all([
-      fetchCategories(),
-      fetchPosts({ limit: 1000 }) // 十分に大きなlimitで全記事を取得
-    ]);
+    // すべてのカテゴリを取得
+    const categoriesData = await fetchCategories();
+    
+    // すべての記事をページングで取得
+    const allPosts: Post[] = [];
+    let offset = 0;
+    const limit = 100;
+    let hasMore = true;
+
+    while (hasMore) {
+      const postsData = await fetchPosts({ offset, limit });
+      allPosts.push(...postsData.contents);
+      
+      // 取得件数がlimitより少ない場合は最後のページ
+      hasMore = postsData.contents.length === limit;
+      offset += limit;
+    }
 
     // カテゴリごとの記事数をカウント
     const categoryCountMap = new Map<string, number>();
     
-    postsData.contents.forEach(post => {
+    allPosts.forEach(post => {
       post.categories?.forEach(category => {
         const currentCount = categoryCountMap.get(category.id) || 0;
         categoryCountMap.set(category.id, currentCount + 1);
