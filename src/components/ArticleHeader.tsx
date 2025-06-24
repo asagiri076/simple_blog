@@ -31,7 +31,7 @@ export default function ArticleHeader({ post }: ArticleHeaderProps) {
       
       <div className="p-8">
         <header className="mb-6">
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-primary-800 to-secondary-700 bg-clip-text text-transparent mb-6 leading-tight">
+          <h1 className="text-4xl font-bold text-primary-800 mb-6 leading-tight">
             {post.title}
           </h1>
           

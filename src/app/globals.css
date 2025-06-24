@@ -52,59 +52,35 @@
   
   .prose h1 {
     @apply text-3xl font-bold mt-12 mb-6 relative;
-    background: linear-gradient(135deg, theme('colors.primary.700'), theme('colors.secondary.600'));
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: theme('colors.primary.800');
   }
   
-  .prose h1::before {
-    content: '';
-    @apply absolute -left-6 top-1/2 w-1 h-8 rounded-full;
-    background: linear-gradient(180deg, theme('colors.primary.500'), theme('colors.secondary.500'));
-    transform: translateY(-50%);
-  }
   
   .prose h2 {
-    @apply text-2xl font-bold mt-10 mb-5 relative pl-4;
-    background: linear-gradient(135deg, theme('colors.primary.600'), theme('colors.secondary.500'));
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    @apply text-2xl font-bold mt-10 mb-5 relative;
+    color: theme('colors.primary.800');
   }
   
-  .prose h2::before {
-    content: '';
-    @apply absolute left-0 top-1/2 w-3 h-3 rounded-full;
-    background: linear-gradient(135deg, theme('colors.primary.400'), theme('colors.secondary.400'));
-    transform: translateY(-50%);
-  }
   
   .prose h3 {
-    @apply text-xl font-bold mt-8 mb-4 relative pl-3;
-    color: theme('colors.primary.700');
+    @apply text-xl font-bold mt-8 mb-4 relative;
+    color: theme('colors.primary.800');
   }
   
-  .prose h3::before {
-    content: '';
-    @apply absolute left-0 top-1/2 w-2 h-2 rounded-full;
-    background: theme('colors.secondary.400');
-    transform: translateY(-50%);
-  }
   
   .prose h4 {
     @apply text-lg font-semibold mt-6 mb-3;
-    color: theme('colors.primary.600');
+    color: theme('colors.primary.800');
   }
   
   .prose h5 {
     @apply text-base font-semibold mt-4 mb-2;
-    color: theme('colors.primary.600');
+    color: theme('colors.primary.800');
   }
   
   .prose h6 {
     @apply text-sm font-semibold mt-4 mb-2;
-    color: theme('colors.primary.600');
+    color: theme('colors.primary.800');
   }
   
   .prose p {
@@ -112,10 +88,11 @@
   }
   
   .prose strong {
-    @apply font-bold px-1 py-0.5 rounded-sm relative;
-    background: linear-gradient(120deg, theme('colors.pink.200'), theme('colors.pink.300'));
-    color: theme('colors.pink.900');
-    box-shadow: 0 2px 4px theme('colors.pink.200');
+    @apply font-bold relative;
+    background: linear-gradient(theme('colors.red.300') 50%);
+    background-size: 100% 50%;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
   }
   
   .prose em {
@@ -128,13 +105,13 @@
   }
   
   .prose ul li {
-    @apply relative pl-6;
+    @apply relative pl-5;
   }
   
   .prose ul li::before {
     content: '';
-    @apply absolute left-0 top-3 w-2 h-2 rounded-full;
-    background: linear-gradient(135deg, theme('colors.primary.400'), theme('colors.secondary.400'));
+    @apply absolute left-1 top-3 w-[0.5rem] h-[0.5rem] rounded-full;
+    background: theme('colors.primary.400');
   }
   
   .prose ol {
@@ -143,14 +120,14 @@
   }
   
   .prose ol li {
-    @apply relative pl-8;
+    @apply relative pl-7;
     counter-increment: custom-counter;
   }
   
   .prose ol li::before {
-    content: counter(custom-counter);
-    @apply absolute left-0 top-0 w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold text-white;
-    background: linear-gradient(135deg, theme('colors.primary.500'), theme('colors.secondary.500'));
+    content: counter(custom-counter) '.';
+    @apply absolute left-0 top-[0.2rem] w-6 h-6 flex items-center justify-center text-primary-700;
+    /* background: linear-gradient(135deg, theme('colors.primary.500'), theme('colors.secondary.500')); */
   }
   
   .prose blockquote {

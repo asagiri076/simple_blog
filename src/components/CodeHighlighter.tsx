@@ -32,6 +32,7 @@ export default function CodeHighlighter({ content }: CodeHighlighterProps) {
     <div 
       className="prose max-w-none"
       dangerouslySetInnerHTML={{ __html: content }}
+      suppressHydrationWarning={true}
     />
   );
 }
