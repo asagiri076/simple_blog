@@ -17,6 +17,10 @@
   "license": "ISC",
   "dependencies": {
     "@tailwindcss/postcss": "^4.1.8",
+    "@types/dompurify": "^3.0.5",
+    "@types/jsdom": "^21.1.7",
+    "dompurify": "^3.2.6",
+    "jsdom": "^26.1.0",
     "next": "^15.3.3",
     "postcss": "^8.5.4",
     "prismjs": "^1.30.0",

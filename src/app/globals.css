@@ -4,6 +4,18 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  html, body, .prose {
+    background: #fff !important;
+    color: #111 !important;
+  }
+  /* 必要に応じて他のダーク系上書きもここでリセット */
+}
+
 @theme {
   --color-primary-50: var(--color-indigo-50);
   --color-primary-100: var(--color-indigo-100);
@@ -189,6 +201,15 @@
   .prose hr {
     @apply my-8 border-0 h-0.5 rounded-full;
     background: linear-gradient(90deg, theme('colors.primary.300'), theme('colors.secondary.300'));
+  }
+
+  .prose .box8 {
+    @apply bg-gray-50 p-4 my-4 rounded-lg shadow-md;
+    border: 0.125rem solid theme('colors.primary.300');
+  }
+
+  .prose .iframely-embed{
+    @apply my-6;
   }
 }
 

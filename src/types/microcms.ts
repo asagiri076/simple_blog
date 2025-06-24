@@ -7,6 +7,12 @@ export interface Category {
   revisedAt: string;
 }
 
+export interface HtmlComponent {
+  fieldId: string;
+  component_id: string;
+  component: string;
+}
+
 export interface Post {
   id: string;
   wp_id?: number;
@@ -19,6 +25,7 @@ export interface Post {
     height: number;
   };
   categories: Category[];
+  componets?: HtmlComponent[];
   createdAt: string;
   updatedAt: string;
   publishedAt: string;

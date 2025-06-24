@@ -2,6 +2,7 @@ import { Post, Category } from '@/types/microcms'
 import ArticleHeader from './ArticleHeader'
 import Sidebar from './Sidebar'
 import CodeHighlighter from './CodeHighlighter'
+import HtmlComponentRenderer from './HtmlComponentRenderer'
 
 interface ArticleDetailProps {
   post: Post
@@ -17,7 +18,14 @@ export default function ArticleDetail({ post, categories }: ArticleDetailProps) 
             <ArticleHeader post={post} />
             
             <div className="px-8 pb-12">
-              <CodeHighlighter content={post.contents} />
+              {post.componets && post.componets.length > 0 ? (
+                <HtmlComponentRenderer 
+                  components={post.componets} 
+                  content={post.contents} 
+                />
+              ) : (
+                <CodeHighlighter content={post.contents} />
+              )}
             </div>
           </article>
         </main>
