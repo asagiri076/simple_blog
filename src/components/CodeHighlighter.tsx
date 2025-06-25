@@ -1,6 +1,7 @@
 'use client';
 
 import { usePrismHighlight } from '@/hooks/usePrismHighlight';
+import OptimizedImageRenderer from './OptimizedImageRenderer';
 
 interface CodeHighlighterProps {
   content: string;
@@ -9,11 +10,5 @@ interface CodeHighlighterProps {
 export default function CodeHighlighter({ content }: CodeHighlighterProps) {
   usePrismHighlight([content]);
 
-  return (
-    <div 
-      className="prose max-w-none"
-      dangerouslySetInnerHTML={{ __html: content }}
-      suppressHydrationWarning={true}
-    />
-  );
+  return <OptimizedImageRenderer content={content} />;
 }

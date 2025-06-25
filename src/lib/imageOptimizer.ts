@@ -77,6 +77,15 @@ export const imagePresets = {
   },
 
   /**
+   * 記事コンテンツ内画像用
+   */
+  articleContent: {
+    mobile: { width: 640, height: 360, quality: 80 },
+    tablet: { width: 800, height: 450, quality: 80 },
+    desktop: { width: 1024, height: 576, quality: 80 }
+  },
+
+  /**
    * OGP・SNSシェア用
    */
   ogp: {
@@ -139,6 +148,8 @@ function generateSizesAttribute(preset: keyof typeof imagePresets): string {
       return '(max-width: 640px) 100vw, (max-width: 1024px) 256px, 256px';
     case 'sidebar':
       return '(max-width: 640px) 120px, (max-width: 1024px) 160px, 160px';
+    case 'articleContent':
+      return '(max-width: 640px) 100vw, (max-width: 800px) 100vw, 1024px';
     case 'ogp':
       return '1200px';
     default:

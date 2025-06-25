@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import { HtmlComponent } from '@/types/microcms'
 import { usePrismHighlight } from '@/hooks/usePrismHighlight'
 import { sanitizeComponentHtml } from '@/lib/sanitizer'
+import OptimizedImageRenderer from './OptimizedImageRenderer'
 
 interface HtmlComponentRendererProps {
   components: HtmlComponent[]
@@ -36,11 +37,5 @@ export default function HtmlComponentRenderer({ components, content }: HtmlCompo
 
   usePrismHighlight([processedContent, components]);
 
-  return (
-    <div 
-      className="prose max-w-none"
-      dangerouslySetInnerHTML={{ __html: processedContent }}
-      suppressHydrationWarning={true}
-    />
-  )
+  return <OptimizedImageRenderer content={processedContent} />
 }
