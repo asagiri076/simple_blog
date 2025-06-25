@@ -1,54 +1,15 @@
-import { notFound } from 'next/navigation';
+import { redirect } from 'next/navigation';
 import { Metadata } from 'next';
-import { fetchPosts, fetchCategories, fetchCategoriesWithPostCount } from '@/lib/microcms';
-import ArticleLayout from '@/components/ArticleLayout';
+import { fetchCategories } from '@/lib/microcms';
 
-// Next.js App RouterのPageProps型を利用
 interface PageProps {
   params: Promise<{ tagId: string }>;
 }
 
 export default async function TagPage({ params }: PageProps) {
   const { tagId } = await params;
-  // 静的エクスポート用：1ページ目のみ表示
-  const currentPage = 1;
-  const limit = 10;
-  const offset = 0;
-
-  try {
-    const [postsData, categoriesData] = await Promise.all([
-      fetchPosts({ 
-        limit,
-        offset,
-        orders: '-publishedAt',
-        filters: `categories[contains]${tagId}`
-      }),
-      fetchCategoriesWithPostCount()
-    ]);
-
-    const currentCategory = categoriesData.find(cat => cat.id === tagId);
-    
-    if (!currentCategory) {
-      notFound();
-    }
-
-    const totalPages = Math.ceil(postsData.totalCount / limit);
-
-    return (
-      <ArticleLayout
-        title={currentCategory.name}
-        subtitle="タグ"
-        posts={postsData.contents}
-        categories={categoriesData}
-        currentPage={currentPage}
-        totalPages={totalPages}
-        basePath={`/tag/${tagId}`}
-      />
-    );
-  } catch (error) {
-    console.error('Error fetching tag page data:', error);
-    notFound();
-  }
+  // タグページは1ページ目にリダイレクト
+  redirect(`/tag/${tagId}/page/1`);
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {

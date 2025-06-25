@@ -18,6 +18,8 @@ export default function ArticleList({ posts }: ArticleListProps) {
       </div>
     );
   }
+  const noImgUrl = 'https://images.microcms-assets.io/assets/cf1b067d77e34fb9a08b3cb8537aacda/16d3b7260cf44a7790032a2e0418d713/no-image.png';
+  const noImgSet = generateResponsiveImageSet(noImgUrl, 'articleList', 'auto');
 
   return (
     <div className="space-y-6">
@@ -39,7 +41,7 @@ export default function ArticleList({ posts }: ArticleListProps) {
                     );
                   })() : (
                     <Image
-                      src="/no-image.png"
+                      src={noImgSet.src}
                       alt={post.title}
                       fill
                       className="object-cover group-hover:scale-110 transition-transform duration-500"

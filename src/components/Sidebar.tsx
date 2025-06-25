@@ -12,6 +12,8 @@ interface SidebarProps {
 }
 
 export default function Sidebar({ categories, relatedPosts = [] }: SidebarProps) {
+  const noImgUrl = 'https://images.microcms-assets.io/assets/cf1b067d77e34fb9a08b3cb8537aacda/16d3b7260cf44a7790032a2e0418d713/no-image.png';
+  const noImgSet = generateResponsiveImageSet(noImgUrl, 'sidebar', 'auto');
 
   return (
     <aside className="w-full lg:w-80 space-y-6">
@@ -44,7 +46,7 @@ export default function Sidebar({ categories, relatedPosts = [] }: SidebarProps)
                         );
                       })() : (
                         <Image
-                          src="/no-image.png"
+                          src={noImgSet.src}
                           alt={post.title}
                           fill
                           className="object-cover rounded-lg group-hover:scale-105 transition-transform duration-300"

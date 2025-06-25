@@ -11,7 +11,7 @@ export default function Pagination({ currentPage, totalPages, basePath }: Pagina
 
   const getPageUrl = (page: number) => {
     if (page === 1) return basePath;
-    return `${basePath}?page=${page}`;
+    return `${basePath}/${page}`;
   };
 
   const renderPageNumbers = () => {
