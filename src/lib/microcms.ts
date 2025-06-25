@@ -13,7 +13,16 @@ const headers = {
   'Content-Type': 'application/json',
 };
 
+// Rate limiting: sleep function to avoid 429 errors
+const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
+
+// Rate limiting delay (100ms between requests)
+const RATE_LIMIT_DELAY = 100;
+
 export async function fetchPosts(params: FetchPostsParams = {}): Promise<MicroCMSListResponse<Post>> {
+  // Rate limiting delay
+  await sleep(RATE_LIMIT_DELAY);
+  
   const searchParams = new URLSearchParams();
   
   if (params.limit && params.limit > 0) searchParams.append('limit', params.limit.toString());
@@ -39,6 +48,9 @@ export async function fetchPosts(params: FetchPostsParams = {}): Promise<MicroCM
 }
 
 export async function fetchPost(id: string): Promise<Post> {
+  // Rate limiting delay
+  await sleep(RATE_LIMIT_DELAY);
+  
   const response = await fetch(`${BASE_URL}/posts/${id}`, { headers });
   
   if (!response.ok) {
@@ -79,6 +91,9 @@ export async function fetchPostById(id: string): Promise<Post | null> {
 }
 
 export async function fetchCategories(limit: number = 100): Promise<MicroCMSListResponse<Category>> {
+  // Rate limiting delay
+  await sleep(RATE_LIMIT_DELAY);
+  
   // すべてのカテゴリを取得するため、デフォルトで大きなlimitを設定
   const searchParams = new URLSearchParams();
   searchParams.append('limit', limit.toString());
