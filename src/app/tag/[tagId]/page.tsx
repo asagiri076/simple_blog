@@ -6,15 +6,14 @@ import ArticleLayout from '@/components/ArticleLayout';
 // Next.js App RouterのPageProps型を利用
 interface PageProps {
   params: Promise<{ tagId: string }>;
-  searchParams: Promise<{ page?: string }>;
 }
 
-export default async function TagPage({ params, searchParams }: PageProps) {
+export default async function TagPage({ params }: PageProps) {
   const { tagId } = await params;
-  const sp = await searchParams;
-  const currentPage = Number(sp.page) || 1;
+  // 静的エクスポート用：1ページ目のみ表示
+  const currentPage = 1;
   const limit = 10;
-  const offset = (currentPage - 1) * limit;
+  const offset = 0;
 
   try {
     const [postsData, categoriesData] = await Promise.all([

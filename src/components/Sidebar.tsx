@@ -1,6 +1,3 @@
-'use client';
-
-import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Post, Category } from '@/types/microcms';
@@ -11,49 +8,20 @@ import { generateResponsiveImageSet } from '@/lib/imageOptimizer';
 
 interface SidebarProps {
   categories: Category[] | CategoryWithCount[];
-  postId?: string; // 現在の記事ID（関連記事取得用）
+  relatedPosts?: Post[]; // サーバーサイドで取得した関連記事
 }
 
-export default function Sidebar({ categories, postId }: SidebarProps) {
-  const [relatedPosts, setRelatedPosts] = useState<Post[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    if (!postId) return;
-    async function fetchRelatedPosts() {
-      try {
-        setLoading(true);
-        const response = await fetch(`/api/related-posts?postId=${postId}`);
-        if (!response.ok) {
-          throw new Error(`Failed to fetch related posts: ${response.status}`);
-        }
-        const data = await response.json();
-        setRelatedPosts(data.contents);
-      } catch (err) {
-        setError(err instanceof Error ? err.message : 'An error occurred');
-      } finally {
-        setLoading(false);
-      }
-    }
-    fetchRelatedPosts();
-  }, [postId]);
+export default function Sidebar({ categories, relatedPosts = [] }: SidebarProps) {
 
   return (
     <aside className="w-full lg:w-80 space-y-6">
-      {postId && (
+      {relatedPosts.length > 0 && (
         <div className="bg-gradient-to-br from-white to-primary-50/30 rounded-xl shadow-lg border border-primary-100/50 p-6 backdrop-blur-sm">
           <h2 className="text-lg font-bold text-primary-900 mb-5 flex items-center gap-2">
             <div className="w-1 h-5 bg-gradient-to-b from-primary-500 to-secondary-500 rounded-full"></div>
             関連記事
           </h2>
-          {loading && (
-            <div className="text-primary-500 text-sm text-center py-4 bg-primary-50/50 rounded-lg border border-primary-100/50 animate-pulse">読み込み中...</div>
-          )}
-          {error && (
-            <div className="text-red-600 text-sm text-center py-4 bg-red-50 rounded-lg border border-red-200">関連記事の取得に失敗しました</div>
-          )}
-          {!loading && !error && relatedPosts.length > 0 && (
+          {relatedPosts.length > 0 && (
             <div className="space-y-3">
               {relatedPosts.map((post) => (
                 <Link
@@ -97,9 +65,6 @@ export default function Sidebar({ categories, postId }: SidebarProps) {
                 </Link>
               ))}
             </div>
-          )}
-          {!loading && !error && relatedPosts.length === 0 && (
-            <div className="text-primary-400 text-sm text-center py-4 bg-primary-50/50 rounded-lg border border-primary-100/50">関連記事がありません</div>
           )}
         </div>
       )}

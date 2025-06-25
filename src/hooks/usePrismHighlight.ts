@@ -22,9 +22,10 @@ import 'prismjs/components/prism-sql';
  * Prism.jsのシンタックスハイライトを適用するカスタムフック
  * @param dependencies - useEffectの依存配列
  */
-export function usePrismHighlight(dependencies: any[] = []) {
+export function usePrismHighlight(dependencies: React.DependencyList = []) {
   useEffect(() => {
     // ページロード後にPrismハイライトを適用
     Prism.highlightAll();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, dependencies);
 }

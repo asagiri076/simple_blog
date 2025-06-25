@@ -43,6 +43,7 @@ let serverDOMPurify: ReturnType<typeof createDOMPurify> | null = null;
 function getServerDOMPurify() {
   if (!serverDOMPurify) {
     const window = new JSDOM('').window;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     serverDOMPurify = createDOMPurify(window as any);
   }
   return serverDOMPurify;
