@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { generateResponsiveImageSet } from '@/lib/imageOptimizer';
+import { optimizeImageUrl } from '@/lib/imageOptimizer';
 
 interface OptimizedImageRendererProps {
   content: string;
@@ -29,30 +29,28 @@ export default function OptimizedImageRenderer({ content }: OptimizedImageRender
         const width = parseInt(img.getAttribute('width') || '0');
         const height = parseInt(img.getAttribute('height') || '0');
 
-        if (src && src.includes('microcms-assets.io')) {
-          // Generate optimized image set
-          const imageSet = generateResponsiveImageSet(src, 'articleContent', 'webp');
+        if (src && src.includes('microcms-assets.io') && width && height) {
+          // Simply convert to AVIF format with original dimensions
+          const optimizedSrc = optimizeImageUrl(src, { 
+            width, 
+            height, 
+            format: 'avif', 
+            quality: 70 
+          });
           
-          // Create a unique ID for this image
-          const imageId = `img-${Math.random().toString(36).substring(2, 11)}`;
-          
-          // Calculate aspect ratio for responsive container
-          const aspectRatio = width && height ? (height / width) * 100 : 56.25; // Default to 16:9
-          
-          // Create optimized image HTML
+          // Create optimized image HTML with original dimensions
           const optimizedImageHtml = `
-            <div class="relative w-full my-8" style="padding-bottom: ${aspectRatio}%;">
+            <figure>
               <img
-                id="${imageId}"
-                src="${imageSet.src}"
-                srcset="${imageSet.srcSet}"
-                sizes="${imageSet.sizes}"
+                src="${optimizedSrc}"
                 alt="${alt}"
-                class="absolute inset-0 w-full h-full object-cover rounded-lg"
+                width="${width}"
+                height="${height}"
+                class="rounded-lg"
                 loading="lazy"
                 decoding="async"
               />
-            </div>
+            </figure>
           `;
 
           // Replace the original img tag (including any wrapping figure)

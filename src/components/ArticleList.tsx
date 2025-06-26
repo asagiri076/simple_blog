@@ -29,7 +29,7 @@ export default function ArticleList({ posts }: ArticleListProps) {
             <div className="flex flex-col sm:flex-row">
                 <div className="sm:w-64 h-40 relative overflow-hidden">
                   {post.eyecatch?.url ? (() => {
-                    const imageSet = generateResponsiveImageSet(post.eyecatch.url, 'articleList', 'auto');
+                    const imageSet = generateResponsiveImageSet(post.eyecatch.url, 'articleList', 'avif');
                     return (
                       <Image
                         src={imageSet.src}

@@ -14,7 +14,7 @@ export default function ArticleHeader({ post }: ArticleHeaderProps) {
       {post.eyecatch && (
         <div className="relative h-32 sm:h-48 lg:h-64 w-full">
           {(() => {
-            const imageSet = generateResponsiveImageSet(post.eyecatch.url, 'articleHeader', 'webp');
+            const imageSet = generateResponsiveImageSet(post.eyecatch.url, 'articleHeader', 'avif');
             return (
               <Image
                 src={imageSet.src}

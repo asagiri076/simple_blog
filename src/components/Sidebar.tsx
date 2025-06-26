@@ -34,7 +34,7 @@ export default function Sidebar({ categories, relatedPosts = [] }: SidebarProps)
                   <div className="flex items-start space-x-3">
                     <div className="w-20 h-16 relative flex-shrink-0">
                       {post.eyecatch?.url ? (() => {
-                        const imageSet = generateResponsiveImageSet(post.eyecatch.url, 'sidebar', 'auto');
+                        const imageSet = generateResponsiveImageSet(post.eyecatch.url, 'sidebar', 'avif');
                         return (
                           <Image
                             src={imageSet.src}
