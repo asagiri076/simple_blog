@@ -12,7 +12,7 @@ export default function ArticleHeader({ post }: ArticleHeaderProps) {
   return (
     <>
       {post.eyecatch && (
-        <div className="relative h-64 sm:h-80 lg:h-96 w-full">
+        <div className="relative h-32 sm:h-48 lg:h-64 w-full">
           {(() => {
             const imageSet = generateResponsiveImageSet(post.eyecatch.url, 'articleHeader', 'webp');
             return (
@@ -29,9 +29,9 @@ export default function ArticleHeader({ post }: ArticleHeaderProps) {
         </div>
       )}
       
-      <div className="p-8">
-        <header className="mb-6">
-          <h1 className="text-4xl font-bold text-primary-800 mb-6 leading-tight">
+      <div className="px-6 py-4">
+        <header className="mb-3">
+          <h1 className="text-3xl font-bold text-primary-800 mb-6 leading-tight">
             {post.title}
           </h1>
           

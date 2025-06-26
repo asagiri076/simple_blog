@@ -14,13 +14,13 @@ export default async function ArticleDetail({ post, categories }: ArticleDetailP
   // サーバーサイドで関連記事を取得（ビルド時に静的化される）
   const relatedPosts = await getRelatedPostsServer(post.id);
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto">
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <main className="lg:col-span-2">
           <article className="bg-gradient-to-br from-white to-gray-50/30 rounded-xl shadow-xl border border-gray-200/50 overflow-hidden backdrop-blur-sm">
             <ArticleHeader post={post} />
             
-            <div className="px-8 pb-12">
+            <div className="px-4 pb-12">
               {post.componets && post.componets.length > 0 ? (
                 <HtmlComponentRenderer 
                   components={post.componets} 
