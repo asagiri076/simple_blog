@@ -1,0 +1,310 @@
+@import "tailwindcss";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  html, body, .prose {
+    background: #fff !important;
+    color: #111 !important;
+  }
+  /* 必要に応じて他のダーク系上書きもここでリセット */
+}
+
+@theme {
+  --color-primary-50: var(--color-indigo-50);
+  --color-primary-100: var(--color-indigo-100);
+  --color-primary-200: var(--color-indigo-200);
+  --color-primary-300: var(--color-indigo-300);
+  --color-primary-400: var(--color-indigo-400);
+  --color-primary-500: var(--color-indigo-500);
+  --color-primary-600: var(--color-indigo-600);
+  --color-primary-700: var(--color-indigo-700);
+  --color-primary-800: var(--color-indigo-800);
+  --color-primary-900: var(--color-indigo-900);
+  --color-primary-950: var(--color-indigo-950);
+  --color-secondary-50: var(--color-emerald-50);
+  --color-secondary-100: var(--color-emerald-100);
+  --color-secondary-200: var(--color-emerald-200);
+  --color-secondary-300: var(--color-emerald-300);
+  --color-secondary-400: var(--color-emerald-400);
+  --color-secondary-500: var(--color-emerald-500);
+  --color-secondary-600: var(--color-emerald-600);
+  --color-secondary-700: var(--color-emerald-700);
+  --color-secondary-800: var(--color-emerald-800);
+  --color-secondary-900: var(--color-emerald-900);
+  --color-secondary-950: var(--color-emerald-950);
+}
+
+@layer utilities {
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}
+
+@layer components {
+  .prose {
+    @apply text-gray-900 leading-8 text-lg;
+  }
+  
+  .prose h1 {
+    @apply text-2xl font-bold mt-12 mb-6 relative;
+    color: theme('colors.primary.800');
+  }
+  
+  
+  .prose h2 {
+    @apply text-xl font-bold mb-4 relative border-y-1 py-3;
+    color: theme('colors.primary.800');
+  }
+  
+  
+  .prose h3 {
+    @apply text-lg font-bold mb-3 relative border-dotted border-b-2 pb-2;
+    color: theme('colors.primary.800');
+  }
+
+
+  .prose h4 {
+    @apply text-lg font-semibold mb-3 border-l-4 pl-2;
+    color: theme('colors.primary.800');
+  }
+  
+  .prose h5 {
+    @apply text-base font-semibold mb-2;
+    color: theme('colors.primary.800');
+  }
+
+  .prose h6 {
+    @apply text-sm font-semibold mb-2;
+    color: theme('colors.primary.800');
+  }
+  
+  .prose p {
+    @apply mb-4 leading-8 text-base;
+  }
+  
+  .prose strong {
+    @apply font-bold relative;
+    background: linear-gradient(theme('colors.red.300') 50%);
+    background-size: 100% 50%;
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+  }
+  
+  .prose em {
+    @apply italic;
+    color: theme('colors.secondary.700');
+  }
+  
+  .prose ul {
+    @apply list-none mb-6 space-y-2 pl-0;
+  }
+  
+  .prose ul li {
+    @apply relative pl-5;
+  }
+  
+  .prose ul li::before {
+    content: '';
+    @apply absolute left-1 top-3 w-[0.5rem] h-[0.5rem] rounded-full;
+    background: theme('colors.primary.400');
+  }
+  
+  .prose ol {
+    @apply list-none mb-6 space-y-2 pl-0;
+    counter-reset: custom-counter;
+  }
+  
+  .prose ol li {
+    @apply relative pl-7;
+    counter-increment: custom-counter;
+  }
+  
+  .prose ol li::before {
+    content: counter(custom-counter) '.';
+    @apply absolute left-0 top-[0.2rem] w-6 h-6 flex items-center justify-center text-primary-700;
+    /* background: linear-gradient(135deg, theme('colors.primary.500'), theme('colors.secondary.500')); */
+  }
+  
+  .prose blockquote {
+    @apply border-l-4 pl-6 pr-4 py-4 mb-6 rounded-r-lg relative;
+    border-left-color: theme('colors.gray.400');
+    background: theme('colors.gray.100');
+  }
+  
+  .prose blockquote p {
+    @apply italic font-medium mb-0;
+    color: theme('colors.gray.700');
+  }
+  
+  .prose code {
+    @apply px-2 py-1 rounded text-sm font-mono font-medium;
+    background: theme('colors.gray.100');
+    color: theme('colors.primary.700');
+    border: 1px solid theme('colors.gray.200');
+  }
+  
+  .prose pre {
+    @apply p-4 rounded-lg mb-6 overflow-x-auto;
+    background: theme('colors.gray.900');
+  }
+  
+  .prose pre code {
+    @apply p-0 bg-transparent border-none text-gray-100;
+  }
+  
+  .prose a {
+    @apply font-medium underline decoration-2 underline-offset-2 transition-colors;
+    color: theme('colors.secondary.600');
+    text-decoration-color: theme('colors.secondary.300');
+  }
+  
+  .prose a:hover {
+    color: theme('colors.secondary.700');
+    text-decoration-color: theme('colors.secondary.500');
+  }
+  
+  .prose img {
+    @apply rounded-lg shadow-lg mb-6 mx-auto;
+  }
+  
+  .prose table {
+    @apply w-full mb-6 border-collapse border border-gray-200 rounded-lg overflow-hidden;
+  }
+  
+  .prose th {
+    @apply px-4 py-3 font-semibold text-left border-b border-gray-200;
+    background: linear-gradient(135deg, theme('colors.primary.50'), theme('colors.secondary.50'));
+    color: theme('colors.primary.800');
+  }
+  
+  .prose td {
+    @apply px-4 py-3 border-b border-gray-100;
+  }
+  
+  .prose hr {
+    @apply my-8 border-0 h-0.5 rounded-full;
+    background: linear-gradient(90deg, theme('colors.primary.300'), theme('colors.secondary.300'));
+  }
+
+  .prose .box8 {
+    @apply bg-gray-50 p-4 my-4 rounded-lg shadow-md;
+    border: 0.125rem solid theme('colors.primary.300');
+  }
+
+  .prose .iframely-embed{
+    @apply my-6;
+  }
+}
+
+/* Prism.js シンタックスハイライトテーマ */
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: #6b7280;
+  font-style: italic;
+}
+
+.token.punctuation {
+  color: #d1d5db;
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol,
+.token.deleted {
+  color: #f87171;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin,
+.token.inserted {
+  color: #34d399;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+  color: #60a5fa;
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+  color: #a78bfa;
+}
+
+.token.function,
+.token.class-name {
+  color: #fbbf24;
+}
+
+.token.regex,
+.token.important,
+.token.variable {
+  color: #fb7185;
+}
+
+.token.important,
+.token.bold {
+  font-weight: bold;
+}
+
+.token.italic {
+  font-style: italic;
+}
+
+/* コードブロックのスタイル調整 */
+pre[class*="language-"] {
+  background: theme('colors.gray.900') !important;
+  color: #f9fafb !important;
+  border-radius: 8px !important;
+  margin: 24px 0 !important;
+  padding: 20px !important;
+  overflow-x: auto !important;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace !important;
+  font-size: 14px !important;
+  line-height: 1.6 !important;
+}
+
+code[class*="language-"] {
+  background: transparent !important;
+  color: inherit !important;
+  font-family: inherit !important;
+  font-size: inherit !important;
+}
+
+/* インラインコードとコードブロックの区別 */
+:not(pre) > code[class*="language-"] {
+  background: theme('colors.gray.100') !important;
+  color: theme('colors.primary.700') !important;
+  padding: 2px 6px !important;
+  border-radius: 4px !important;
+  border: 1px solid theme('colors.gray.200') !important;
+  font-size: 13px !important;
+}
