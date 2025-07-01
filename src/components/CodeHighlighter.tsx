@@ -1,7 +1,7 @@
 'use client';
 
 import { usePrismHighlight } from '@/hooks/usePrismHighlight';
-import OptimizedImageRenderer from './OptimizedImageRenderer';
+import ArticleContentRenderer from './ArticleContentRenderer';
 
 interface CodeHighlighterProps {
   content: string;
@@ -10,5 +10,5 @@ interface CodeHighlighterProps {
 export default function CodeHighlighter({ content }: CodeHighlighterProps) {
   usePrismHighlight([content]);
 
-  return <OptimizedImageRenderer content={content} />;
+  return <ArticleContentRenderer content={content} />;
 }

@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import { HtmlComponent } from '@/types/microcms'
 import { usePrismHighlight } from '@/hooks/usePrismHighlight'
 import { sanitizeComponentHtml } from '@/lib/sanitizer'
-import OptimizedImageRenderer from './OptimizedImageRenderer'
+import ArticleContentRenderer from './ArticleContentRenderer'
 
 interface HtmlComponentRendererProps {
   components: HtmlComponent[]
@@ -37,5 +37,5 @@ export default function HtmlComponentRenderer({ components, content }: HtmlCompo
 
   usePrismHighlight([processedContent, components]);
 
-  return <OptimizedImageRenderer content={processedContent} />
+  return <ArticleContentRenderer content={processedContent} />
 }

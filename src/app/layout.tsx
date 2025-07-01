@@ -15,6 +15,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ja">
+      <head>
+        <script async src="https://cdn.iframe.ly/embed.js"></script>
+      </head>
       <body className="min-h-screen bg-gray-50">
         <Header />
         <main className="max-w-7xl mx-auto px-1 sm:px-6 sm:py-4 lg:px-8">

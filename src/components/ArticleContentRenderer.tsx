@@ -3,11 +3,20 @@
 import { useEffect, useState } from 'react';
 import { optimizeImageUrl } from '@/lib/imageOptimizer';
 
-interface OptimizedImageRendererProps {
+// Type declaration for iframely
+declare global {
+  interface Window {
+    iframely?: {
+      load: () => void;
+    };
+  }
+}
+
+interface ArticleContentRendererProps {
   content: string;
 }
 
-export default function OptimizedImageRenderer({ content }: OptimizedImageRendererProps) {
+export default function ArticleContentRenderer({ content }: ArticleContentRendererProps) {
   const [optimizedContent, setOptimizedContent] = useState<string>(content);
 
   useEffect(() => {
@@ -70,11 +79,38 @@ export default function OptimizedImageRenderer({ content }: OptimizedImageRender
         }
       });
 
+      // Remove duplicate iframely script tags from content since we load it globally
+      processedContent = processedContent.replace(
+        /<script[^>]*src="https:\/\/cdn\.iframe\.ly\/embed\.js"[^>]*><\/script>/gi,
+        ''
+      );
+
       setOptimizedContent(processedContent);
     };
 
     optimizeImages();
   }, [content]);
+
+  // Handle iframely loading after content is rendered
+  useEffect(() => {
+    if (optimizedContent && optimizedContent.includes('iframely-embed')) {
+      const loadIframely = () => {
+        if (typeof window !== 'undefined' && window.iframely) {
+          try {
+            window.iframely.load();
+          } catch (error) {
+            console.warn('Failed to load iframely:', error);
+          }
+        } else {
+          // Retry after a short delay if iframely is not loaded yet
+          setTimeout(loadIframely, 100);
+        }
+      };
+
+      // Wait for next tick to ensure DOM is updated
+      setTimeout(loadIframely, 0);
+    }
+  }, [optimizedContent]);
 
   return (
     <div 
