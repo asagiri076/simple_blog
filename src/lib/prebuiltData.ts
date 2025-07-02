@@ -163,3 +163,25 @@ export async function getRelatedPostsServer(postId: string): Promise<Post[]> {
     return [];
   }
 }
+
+/**
+ * 前後の記事を取得する
+ * @param postId - 現在の記事ID
+ * @returns 前の記事と次の記事のオブジェクト
+ */
+export async function getAdjacentPosts(postId: string): Promise<{ prevPost: Post | null; nextPost: Post | null }> {
+  const data = await loadPrebuiltData();
+  const currentIndex = data.posts.findIndex(post => post.id === postId);
+  
+  if (currentIndex === -1) {
+    return { prevPost: null, nextPost: null };
+  }
+  
+  // 記事は公開日の新しい順でソート済みなので、
+  // 前の記事は配列の前の要素（より新しい記事）
+  // 次の記事は配列の後の要素（より古い記事）
+  const prevPost = currentIndex > 0 ? data.posts[currentIndex - 1] : null;
+  const nextPost = currentIndex < data.posts.length - 1 ? data.posts[currentIndex + 1] : null;
+  
+  return { prevPost, nextPost };
+}

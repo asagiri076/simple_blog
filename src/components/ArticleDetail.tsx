@@ -4,7 +4,8 @@ import Sidebar from './Sidebar'
 import CodeHighlighter from './CodeHighlighter'
 import HtmlComponentRenderer from './HtmlComponentRenderer'
 import FooterSponsoredAd from './SponsoredAd'
-import { getRelatedPostsServer } from '@/lib/prebuiltData'
+import ArticleNavigation from './ArticleNavigation'
+import { getRelatedPostsServer, getAdjacentPosts } from '@/lib/prebuiltData'
 
 interface ArticleDetailProps {
   post: Post
@@ -12,8 +13,11 @@ interface ArticleDetailProps {
 }
 
 export default async function ArticleDetail({ post, categories }: ArticleDetailProps) {
-  // サーバーサイドで関連記事を取得（ビルド時に静的化される）
-  const relatedPosts = await getRelatedPostsServer(post.id);
+  // サーバーサイドで関連記事と前後記事を取得（ビルド時に静的化される）
+  const [relatedPosts, { prevPost, nextPost }] = await Promise.all([
+    getRelatedPostsServer(post.id),
+    getAdjacentPosts(post.id)
+  ]);
   return (
     <div className="container mx-auto">
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -32,6 +36,8 @@ export default async function ArticleDetail({ post, categories }: ArticleDetailP
               )}
             </div>
           </article>
+
+          <ArticleNavigation prevPost={prevPost} nextPost={nextPost} />
 
           <FooterSponsoredAd />
         </main>
