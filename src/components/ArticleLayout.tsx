@@ -1,5 +1,5 @@
 import { Post, Category } from '@/types/microcms'
-import { CategoryWithCount } from '@/lib/microcms'
+import { CategoryWithCount } from '@/lib/prebuiltData'
 import ArticleList from './ArticleList'
 import Pagination from './Pagination'
 import Sidebar from './Sidebar'

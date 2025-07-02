@@ -4,7 +4,7 @@ import Sidebar from './Sidebar'
 import CodeHighlighter from './CodeHighlighter'
 import HtmlComponentRenderer from './HtmlComponentRenderer'
 import FooterSponsoredAd from './SponsoredAd'
-import { getRelatedPostsServer } from '@/lib/relatedPosts'
+import { getRelatedPostsServer } from '@/lib/prebuiltData'
 
 interface ArticleDetailProps {
   post: Post

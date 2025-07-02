@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
-import { fetchPost, fetchPosts, fetchCategories } from '@/lib/microcms';
+import { getPostById, getAllPostsWithMeta, getCategoriesWithMeta } from '@/lib/prebuiltData';
 import ArticleDetail from '@/components/ArticleDetail';
 
 // Next.js App RouterのPageProps型を利用
@@ -13,9 +13,13 @@ export default async function ArticlePage({ params }: PageProps) {
 
   try {
     const [post, categoriesData] = await Promise.all([
-      fetchPost(articleId),
-      fetchCategories()
+      getPostById(articleId),
+      getCategoriesWithMeta()
     ]);
+
+    if (!post) {
+      notFound();
+    }
 
     return (
       <ArticleDetail 
@@ -33,7 +37,14 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const { articleId } = await params;
   
   try {
-    const post = await fetchPost(articleId);
+    const post = await getPostById(articleId);
+    
+    if (!post) {
+      return {
+        title: 'Article Not Found | Simple Blog',
+        description: 'The requested article could not be found.',
+      };
+    }
     
     return {
       title: `${post.title} | Simple Blog`,
@@ -63,7 +74,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export async function generateStaticParams() {
   try {
-    const postsData = await fetchPosts({ limit: 100 });
+    const postsData = await getAllPostsWithMeta();
     return postsData.contents.map((post) => ({
       articleId: post.id,
     }));

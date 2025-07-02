@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { Post, Category } from '@/types/microcms';
-import { CategoryWithCount } from '@/lib/microcms';
+import { CategoryWithCount } from '@/lib/prebuiltData';
 import { generateArticleUrl } from '@/lib/articleUrl';
 import DateDisplay from './DateDisplay';
 import { generateResponsiveImageSet } from '@/lib/imageOptimizer';
