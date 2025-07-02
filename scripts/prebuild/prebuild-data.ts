@@ -45,10 +45,10 @@ function calculateRelatedPosts(posts: Post[], currentPostId: string): Post[] {
       post.id !== currentPostId &&
       post.categories?.some(cat => categoryIds.includes(cat.id))
     )
-    .slice(0, 5);
+    .slice(0, 6);
 
-  // 関連記事が5件未満の場合、他の記事で埋める
-  if (relatedPosts.length < 5) {
+  // 関連記事が6件未満の場合、他の記事で埋める
+  if (relatedPosts.length < 6) {
     const additionalPosts = posts
       .filter(post => 
         post.id !== currentPostId && 
