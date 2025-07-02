@@ -3,6 +3,7 @@ import ArticleHeader from './ArticleHeader'
 import Sidebar from './Sidebar'
 import CodeHighlighter from './CodeHighlighter'
 import HtmlComponentRenderer from './HtmlComponentRenderer'
+import FooterSponsoredAd from './SponsoredAd'
 import { getRelatedPostsServer } from '@/lib/relatedPosts'
 
 interface ArticleDetailProps {
@@ -31,6 +32,8 @@ export default async function ArticleDetail({ post, categories }: ArticleDetailP
               )}
             </div>
           </article>
+
+          <FooterSponsoredAd />
         </main>
         
         <aside className="lg:col-span-1">

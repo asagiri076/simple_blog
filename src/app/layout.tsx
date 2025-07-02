@@ -2,6 +2,8 @@ import type { Metadata } from 'next'
 import './globals.css'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
+import { GoogleAnalytics } from '@next/third-parties/google'
+import Script from 'next/script'
 
 export const metadata: Metadata = {
   title: 'Simple Blog',
@@ -24,6 +26,17 @@ export default function RootLayout({
           {children}
         </main>
         <Footer />
+        {process.env.NEXT_PUBLIC_GA_ID && (
+          <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} debugMode={process.env.NEXT_PUBLIC_DEBUG_MODE === 'true'} />
+        )}
+        {process.env.NEXT_PUBLIC_ADSENSE_ID && (
+          <Script
+            async
+            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.NEXT_PUBLIC_ADSENSE_ID}`}
+            crossOrigin="anonymous"
+            // strategy="lazyOnload"
+          />
+        )}
       </body>
     </html>
   )
