@@ -26,7 +26,7 @@ export default function ArticleNavigation({ prevPost, nextPost }: ArticleNavigat
           {prevPost ? (
             <Link 
               href={getPostUrl(prevPost)}
-              className="group block p-4 rounded-lg border border-gray-200 hover:border-primary-300 hover:bg-primary-50/50 transition-all duration-200 h-24 flex flex-col justify-between"
+              className="group block bg-white p-4 rounded-lg shadow-lg backdrop-blur-sm hover:border-primary-300 hover:bg-primary-50/50 transition-all duration-200 h-24 flex flex-col justify-between"
             >
               <div className="flex items-center gap-2 text-sm text-gray-500">
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -51,7 +51,7 @@ export default function ArticleNavigation({ prevPost, nextPost }: ArticleNavigat
           {nextPost ? (
             <Link 
               href={getPostUrl(nextPost)}
-              className="group block p-4 rounded-lg border border-gray-200 hover:border-primary-300 hover:bg-primary-50/50 transition-all duration-200 text-right h-24 flex flex-col justify-between"
+              className="group block bg-white p-4 rounded-lg shadow-lg backdrop-blur-sm hover:border-primary-300 hover:bg-primary-50/50 transition-all duration-200 text-right h-24 flex flex-col justify-between"
             >
               <div className="flex items-center justify-end gap-2 text-sm text-gray-500">
                 次の記事

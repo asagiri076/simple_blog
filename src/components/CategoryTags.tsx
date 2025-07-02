@@ -20,8 +20,8 @@ export default function CategoryTags({
 
   const baseClasses = 'inline-block px-3 py-1 text-xs rounded-full'
   const variantClasses = {
-    list: 'bg-gradient-to-r from-primary-100 to-primary-200 text-primary-800 hover:from-primary-200 hover:to-primary-300 hover:scale-105 transition-all duration-300 shadow-sm border border-primary-200/50',
-    detail: 'bg-gradient-to-r from-primary-100 to-primary-200 text-primary-800 hover:from-primary-200 hover:to-primary-300 hover:scale-105 transition-all duration-300 shadow-sm border border-primary-200/50'
+    list: 'bg-gradient-to-r from-primary-100 to-primary-200 text-primary-800 shadow-sm border border-primary-200/50',
+    detail: 'bg-gradient-to-r from-primary-100 to-primary-200 text-primary-800 shadow-sm border border-primary-200/50'
   }
 
   return (

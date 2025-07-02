@@ -5,7 +5,7 @@ import CodeHighlighter from './CodeHighlighter'
 import HtmlComponentRenderer from './HtmlComponentRenderer'
 import FooterSponsoredAd from './SponsoredAd'
 import ArticleNavigation from './ArticleNavigation'
-import { getRelatedPostsServer, getAdjacentPosts } from '@/lib/prebuiltData'
+import { getRelatedPostsServer, getAdjacentPosts, getCategoriesWithCount } from '@/lib/prebuiltData'
 import Link from 'next/link'
 import Image from 'next/image'
 import { generateArticleUrl } from '@/lib/articleUrl'
@@ -17,20 +17,22 @@ interface ArticleDetailProps {
   categories: Category[]
 }
 
-export default async function ArticleDetail({ post, categories }: ArticleDetailProps) {
+export default async function ArticleDetail({ post }: ArticleDetailProps) {
   // サーバーサイドで関連記事と前後記事を取得（ビルド時に静的化される）
-  const [relatedPosts, { prevPost, nextPost }] = await Promise.all([
+  const [relatedPosts, { prevPost, nextPost }, categoriesWithCountData] = await Promise.all([
     getRelatedPostsServer(post.id),
-    getAdjacentPosts(post.id)
+    getAdjacentPosts(post.id),
+    getCategoriesWithCount()
   ]);
 
+  const categoriesWithCount = categoriesWithCountData || [];
   const noImgUrl = 'https://images.microcms-assets.io/assets/cf1b067d77e34fb9a08b3cb8537aacda/16d3b7260cf44a7790032a2e0418d713/no-image.png';
   const noImgSet = generateResponsiveImageSet(noImgUrl, 'sidebar', 'auto');
   return (
     <div className="container mx-auto">
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <main className="lg:col-span-2">
-          <article className="bg-gradient-to-br from-white to-gray-50/30 rounded-xl shadow-xl border border-gray-200/50 overflow-hidden backdrop-blur-sm">
+          <article className="bg-white rounded-xl shadow-xl border border-gray-200/50 overflow-hidden backdrop-blur-sm">
             <ArticleHeader post={post} />
             
             <div className="px-4 pb-12">
@@ -50,7 +52,7 @@ export default async function ArticleDetail({ post, categories }: ArticleDetailP
           <FooterSponsoredAd />
 
           {relatedPosts.length > 0 && (
-            <div className="mt-8 bg-gradient-to-br from-white to-primary-50/30 rounded-xl shadow-lg border border-primary-100/50 p-6 backdrop-blur-sm">
+            <div className="mt-8 bg-white rounded-xl shadow-lg p-6 backdrop-blur-sm">
               <h2 className="text-lg font-bold text-primary-900 mb-5 flex items-center gap-2">
                 <div className="w-1 h-5 bg-gradient-to-b from-primary-500 to-secondary-500 rounded-full"></div>
                 関連記事
@@ -103,7 +105,7 @@ export default async function ArticleDetail({ post, categories }: ArticleDetailP
         </main>
         
         <aside className="lg:col-span-1">
-          <Sidebar categories={categories} />
+          <Sidebar categories={categoriesWithCount} />
         </aside>
       </div>
     </div>
