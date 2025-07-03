@@ -1,8 +1,8 @@
 import { Post, Category } from '@/types/microcms'
-import { CategoryWithCount } from '@/lib/prebuiltData'
-import ArticleList from './ArticleList'
-import Pagination from './Pagination'
-import Sidebar from './Sidebar'
+import { CategoryWithCount } from '@/lib/data/prebuiltData'
+import ArticleList from '@/components/article/ArticleList'
+import PageNavigation from '@/components/common/PageNavigation'
+import Sidebar from '@/components/layout/Sidebar'
 
 interface ArticleLayoutProps {
   title: string
@@ -40,7 +40,7 @@ export default function ArticleLayout({
           <ArticleList posts={posts} />
           {totalPages > 1 && (
             <div className="mt-8">
-              <Pagination
+              <PageNavigation
                 currentPage={currentPage}
                 totalPages={totalPages}
                 basePath={basePath}

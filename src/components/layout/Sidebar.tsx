@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { Category } from '@/types/microcms';
-import { CategoryWithCount } from '@/lib/prebuiltData';
+import { CategoryWithCount } from '@/lib/data/prebuiltData';
 
 interface SidebarProps {
   categories: Category[] | CategoryWithCount[];

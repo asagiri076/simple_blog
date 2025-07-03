@@ -1,6 +1,6 @@
 import { redirect } from 'next/navigation';
 import { Metadata } from 'next';
-import { getCategoriesWithMeta } from '@/lib/prebuiltData';
+import { getCategoriesWithMeta } from '@/lib/data/prebuiltData';
 
 interface PageProps {
   params: Promise<{ tagId: string }>;

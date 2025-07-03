@@ -211,6 +211,74 @@ html {
   .prose .iframely-embed{
     @apply my-6;
   }
+
+  /* Table of Contents Styles */
+  .prose .table-of-contents {
+    @apply bg-gradient-to-br from-gray-50 to-blue-50 border border-gray-200 rounded-lg p-6 mb-8 shadow-md;
+  }
+
+  .prose .table-of-contents .toc-header h2 {
+    @apply text-lg font-bold mb-4 text-primary-800 border-none mt-0 py-0;
+    background: linear-gradient(135deg, theme('colors.primary.600'), theme('colors.secondary.600'));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .prose .table-of-contents .toc-content {
+    @apply space-y-2;
+  }
+
+  .prose .table-of-contents .toc-list,
+  .prose .table-of-contents .toc-sublist {
+    @apply list-none space-y-1 pl-0;
+  }
+
+  .prose .table-of-contents .toc-sublist {
+    @apply pl-4 mt-2;
+  }
+
+  .prose .table-of-contents .toc-item {
+    @apply relative;
+  }
+
+  .prose .table-of-contents .toc-link {
+    @apply block py-2 px-3 rounded-md text-sm font-medium no-underline transition-all duration-200;
+    color: theme('colors.gray.700');
+  }
+
+  .prose .table-of-contents .toc-link:hover {
+    @apply bg-white shadow-sm;
+    color: theme('colors.primary.700');
+    text-decoration: none;
+  }
+
+  .prose .table-of-contents .toc-link[data-level="2"] {
+    @apply font-semibold text-base;
+    color: theme('colors.primary.800');
+  }
+
+  .prose .table-of-contents .toc-link[data-level="3"] {
+    @apply text-sm;
+    color: theme('colors.gray.600');
+  }
+
+  .prose .table-of-contents .toc-link[data-level="4"] {
+    @apply text-xs;
+    color: theme('colors.gray.500');
+  }
+
+  .prose .table-of-contents .toc-level-2 {
+    @apply border-l-2 border-primary-300;
+  }
+
+  .prose .table-of-contents .toc-level-3 {
+    @apply border-l-2 border-secondary-200;
+  }
+
+  .prose .table-of-contents .toc-level-4 {
+    @apply border-l-1 border-gray-200;
+  }
 }
 
 /* Prism.js シンタックスハイライトテーマ */

@@ -2,7 +2,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { Post } from '@/types/microcms'
 import DateDisplay from './DateDisplay'
-import { generateResponsiveImageSet } from '@/lib/imageOptimizer'
+import { generateResponsiveImageSet } from '@/lib/content/imageOptimizer'
 
 interface ArticleHeaderProps {
   post: Post

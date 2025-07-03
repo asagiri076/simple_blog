@@ -4,10 +4,13 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Commands
 
-- `npm run dev` - Start development server on http://localhost:3000
+- `npm run dev-build` - Build for development/testing
+- `npm run dev-server` - Start development server to test built application
 - `npm run build` - Build for production 
 - `npm run start` - Start production server
 - `npm run lint` - Run Next.js linting
+
+**Important**: Use `npm run dev-build` and `npm run dev-server` for development. Do NOT use `npm run dev`.
 
 ## Environment Setup
 
@@ -59,5 +62,39 @@ Articles should include: title, featured image, publication date, tags, summary,
 ### API Routes
 - `/api/popular-posts` - CSR endpoint for sidebar popular posts
 - `/api/related-posts` - CSR endpoint for related posts functionality
+
+### Content Processing Architecture
+
+The blog uses a hybrid rendering approach with clear separation between server-side and client-side content processing.
+
+#### Server-Side Processing (SSG Time)
+
+**Entry Point**: `ServerSideContentRenderer` component processes content at build.
+
+#### Client-Side Processing (Runtime)
+
+**Entry Point**: `ClientSideContentRenderer` component uses hooks for client-side processing.
+
+#### Processing Flow
+```
+Raw Content (microCMS)
+  ↓ Server-Side (SSG)
+  ├── ToC Generation
+  ├── HTML Component Replacement
+  └── Image Optimization
+  ↓ 
+Static HTML Generated
+  ↓ Client-Side (Runtime)
+  ├── Prism Highlighting
+  └── Iframely Loading
+  ↓
+Final Rendered Content
+```
+
+#### Component Architecture
+- `HtmlComponentRenderer` - Wrapper for articles with HTML components
+- `CodeHighlighter` - Wrapper for articles without HTML components  
+- `ServerSideContentRenderer` - Executes all server-side processing
+- `ClientSideContentRenderer` - Executes all client-side processing
 
 Refer to `docs/dd.md` for detailed screen design specifications.

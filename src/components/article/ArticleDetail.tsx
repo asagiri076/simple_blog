@@ -1,16 +1,16 @@
 import { Post, Category } from '@/types/microcms'
 import ArticleHeader from './ArticleHeader'
-import Sidebar from './Sidebar'
-import CodeHighlighter from './CodeHighlighter'
-import HtmlComponentRenderer from './HtmlComponentRenderer'
-import FooterSponsoredAd from './SponsoredAd'
+import Sidebar from '@/components/layout/Sidebar'
+import CodeHighlighter from '@/components/content/CodeHighlighter'
+import HtmlComponentRenderer from '@/components/content/HtmlComponentRenderer'
+import AdBanner from '@/components/common/AdBanner'
 import ArticleNavigation from './ArticleNavigation'
-import { getRelatedPostsServer, getAdjacentPosts, getCategoriesWithCount } from '@/lib/prebuiltData'
+import { getRelatedPostsServer, getAdjacentPosts, getCategoriesWithCount } from '@/lib/data/prebuiltData'
 import Link from 'next/link'
 import Image from 'next/image'
-import { generateArticleUrl } from '@/lib/articleUrl'
+import { generateArticleUrl } from '@/lib/utils/articleUrl'
 import DateDisplay from './DateDisplay'
-import { generateResponsiveImageSet } from '@/lib/imageOptimizer'
+import { generateResponsiveImageSet } from '@/lib/content/imageOptimizer'
 
 interface ArticleDetailProps {
   post: Post
@@ -49,7 +49,7 @@ export default async function ArticleDetail({ post }: ArticleDetailProps) {
 
           <ArticleNavigation prevPost={prevPost} nextPost={nextPost} />
 
-          <FooterSponsoredAd />
+          <AdBanner />
 
           {relatedPosts.length > 0 && (
             <div className="mt-8 bg-white rounded-xl shadow-lg p-6 backdrop-blur-sm">

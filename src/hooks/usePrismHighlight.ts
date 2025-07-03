@@ -20,12 +20,11 @@ import 'prismjs/components/prism-sql';
 
 /**
  * Prism.jsのシンタックスハイライトを適用するカスタムフック
- * @param dependencies - useEffectの依存配列
+ * @param content - ハイライト対象のコンテンツ
  */
-export function usePrismHighlight(dependencies: React.DependencyList = []) {
+export function usePrismHighlight(content: string) {
   useEffect(() => {
     // ページロード後にPrismハイライトを適用
     Prism.highlightAll();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, dependencies);
+  }, [content]);
 }

@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { Post } from '@/types/microcms';
-import { getArticleId, extractYearMonth } from '@/lib/articleUrl';
+import { getArticleId, extractYearMonth } from '@/lib/utils/articleUrl';
 
 interface ArticleNavigationProps {
   prevPost: Post | null;
