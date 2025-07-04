@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import './globals.css'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
+import AdProvider from '@/components/common/AdProvider'
 import { GoogleAnalytics } from '@next/third-parties/google'
 import Script from 'next/script'
 
@@ -22,9 +23,11 @@ export default function RootLayout({
       </head>
       <body className="min-h-screen bg-gray-50">
         <Header />
-        <main className="max-w-7xl mx-auto px-1 sm:px-6 sm:py-4 lg:px-8">
-          {children}
-        </main>
+        <AdProvider>
+          <main className="max-w-7xl mx-auto px-1 sm:px-6 sm:py-4 lg:px-8">
+            {children}
+          </main>
+        </AdProvider>
         <Footer />
         {process.env.NEXT_PUBLIC_GA_ID && (
           <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} debugMode={process.env.NEXT_PUBLIC_DEBUG_MODE === 'true'} />

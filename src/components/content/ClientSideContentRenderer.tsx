@@ -11,6 +11,8 @@ interface ClientSideContentRendererProps {
  * クライアントサイドでのコンテンツ処理を実行
  * 1. Prismコードハイライト
  * 2. iframelyロード
+ * 
+ * 注意: ToC・広告処理はServerSideContentRendererで既に完了済み
  */
 export default function ClientSideContentRenderer({ content }: ClientSideContentRendererProps) {
   // Prismコードハイライトを適用

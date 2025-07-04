@@ -3,7 +3,7 @@ import ArticleHeader from './ArticleHeader'
 import Sidebar from '@/components/layout/Sidebar'
 import CodeHighlighter from '@/components/content/CodeHighlighter'
 import HtmlComponentRenderer from '@/components/content/HtmlComponentRenderer'
-import AdBanner from '@/components/common/AdBanner'
+import AdUnit from '@/components/common/AdUnit'
 import ArticleNavigation from './ArticleNavigation'
 import { getRelatedPostsServer, getAdjacentPosts, getCategoriesWithCount } from '@/lib/data/prebuiltData'
 import Link from 'next/link'
@@ -49,7 +49,7 @@ export default async function ArticleDetail({ post }: ArticleDetailProps) {
 
           <ArticleNavigation prevPost={prevPost} nextPost={nextPost} />
 
-          <AdBanner />
+          <AdUnit type="footer" />
 
           {relatedPosts.length > 0 && (
             <div className="mt-8 bg-white rounded-xl shadow-lg p-6 backdrop-blur-sm">
