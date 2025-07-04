@@ -164,26 +164,6 @@ export function optimizeImage(originalUrl: string, width: number, height?: numbe
   return optimizeImageUrl(originalUrl, { width, height });
 }
 
-/**
- * WebP対応の画像最適化
- */
-export function optimizeImageWebP(originalUrl: string, width: number, height?: number, quality = 80): string {
-  return optimizeImageUrl(originalUrl, { width, height, quality, format: 'webp' });
-}
-
-/**
- * AVIF対応の画像最適化（最新の高効率フォーマット）
- */
-export function optimizeImageAVIF(originalUrl: string, width: number, height?: number, quality = 80): string {
-  return optimizeImageUrl(originalUrl, { width, height, quality, format: 'avif' });
-}
-
-/**
- * 自動フォーマット選択の画像最適化
- */
-export function optimizeImageAuto(originalUrl: string, width: number, height?: number, quality = 80): string {
-  return optimizeImageUrl(originalUrl, { width, height, quality, format: 'auto' });
-}
 
 /**
  * コンテンツ内の画像を最適化（サーバーサイド処理）

@@ -9,12 +9,6 @@ export function getArticleId(post: Post): string {
   return post.wp_id ? post.wp_id.toString() : post.id;
 }
 
-/**
- * 記事のIDタイプを判定
- */
-export function getArticleIdType(post: Post): ArticleIdType {
-  return post.wp_id ? 'wp_id' : 'id';
-}
 
 /**
  * URLパラメータからIDタイプを判定（数値ならwp_id、そうでなければid）
