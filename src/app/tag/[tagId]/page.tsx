@@ -1,6 +1,6 @@
 import { redirect } from 'next/navigation';
 import { Metadata } from 'next';
-import { fetchCategories } from '@/lib/microcms';
+import { getCategoriesWithMeta } from '@/lib/data/prebuiltData';
 
 interface PageProps {
   params: Promise<{ tagId: string }>;
@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const { tagId } = await params;
   
   try {
-    const categoriesData = await fetchCategories();
+    const categoriesData = await getCategoriesWithMeta();
     const currentCategory = categoriesData.contents.find(cat => cat.id === tagId);
     
     if (!currentCategory) {
@@ -45,7 +45,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export async function generateStaticParams() {
   try {
-    const categoriesData = await fetchCategories();
+    const categoriesData = await getCategoriesWithMeta();
     return categoriesData.contents.map((category) => ({
       tagId: category.id,
     }));

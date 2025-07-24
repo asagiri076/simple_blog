@@ -1,8 +1,8 @@
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
-import { fetchPosts, fetchCategories, fetchPostByWpId, fetchPostById } from '@/lib/microcms';
-import { getArticleId, extractYearMonth, parseArticleIdType } from '@/lib/articleUrl';
-import ArticleDetail from '@/components/ArticleDetail';
+import { getAllPostsWithMeta, getCategoriesWithMeta, getPostByWpId, getPostById } from '@/lib/data/prebuiltData';
+import { getArticleId, extractYearMonth, parseArticleIdType } from '@/lib/utils/articleUrl';
+import ArticleDetail from '@/components/article/ArticleDetail';
 
 // Next.js App RouterのPageProps型を利用
 interface PageProps {
@@ -16,8 +16,8 @@ export default async function ArticlePage({ params }: PageProps) {
     // IDタイプを判定して適切なfetch関数を使用
     const idType = parseArticleIdType(articleId);
     const [post, categoriesData] = await Promise.all([
-      idType === 'wp_id' ? fetchPostByWpId(parseInt(articleId)) : fetchPostById(articleId),
-      fetchCategories()
+      idType === 'wp_id' ? getPostByWpId(parseInt(articleId)) : getPostById(articleId),
+      getCategoriesWithMeta()
     ]);
 
     if (!post) {
@@ -48,7 +48,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   try {
     // IDタイプを判定して適切なfetch関数を使用
     const idType = parseArticleIdType(articleId);
-    const post = await (idType === 'wp_id' ? fetchPostByWpId(parseInt(articleId)) : fetchPostById(articleId));
+    const post = await (idType === 'wp_id' ? getPostByWpId(parseInt(articleId)) : getPostById(articleId));
 
     if (!post) {
       return {
@@ -94,7 +94,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export async function generateStaticParams() {
   try {
-    const postsData = await fetchPosts({ limit: 100 });
+    const postsData = await getAllPostsWithMeta();
     return postsData.contents.map((post) => {
       const { year, month } = extractYearMonth(post.publishedAt);
       const articleId = getArticleId(post);

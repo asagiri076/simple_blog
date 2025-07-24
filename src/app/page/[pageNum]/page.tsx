@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
-import { fetchPosts, fetchCategoriesWithPostCount } from '@/lib/microcms';
-import ArticleLayout from '@/components/ArticleLayout';
+import { getAllPosts, getCategoriesWithCount } from '@/lib/data/prebuiltData';
+import ArticleLayout from '@/components/layout/ArticleLayout';
 
 interface PageProps {
   params: Promise<{ pageNum: string }>;
@@ -20,22 +20,25 @@ export default async function PaginatedHome({ params }: PageProps) {
   const offset = (currentPage - 1) * limit;
 
   try {
-    const [postsData, categoriesData] = await Promise.all([
-      fetchPosts({ limit, offset, orders: '-publishedAt' }),
-      fetchCategoriesWithPostCount()
+    const [allPosts, categoriesData] = await Promise.all([
+      getAllPosts(),
+      getCategoriesWithCount()
     ]);
 
-    const totalPages = Math.ceil(postsData.totalCount / limit);
+    const totalPages = Math.ceil(allPosts.length / limit);
 
     // ページ番号が総ページ数を超えている場合は404
     if (currentPage > totalPages) {
       notFound();
     }
 
+    // ページングされた記事を取得
+    const posts = allPosts.slice(offset, offset + limit);
+
     return (
       <ArticleLayout
         title="最新記事"
-        posts={postsData.contents}
+        posts={posts}
         categories={categoriesData}
         currentPage={currentPage}
         totalPages={totalPages}
@@ -68,8 +71,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 export async function generateStaticParams() {
   try {
     // 全記事数を取得してページ数を計算
-    const postsData = await fetchPosts({ limit: 1 }); // 1件だけ取得して総数を確認
-    const totalPosts = postsData.totalCount;
+    const allPosts = await getAllPosts();
+    const totalPosts = allPosts.length;
     const limit = 10;
     const totalPages = Math.ceil(totalPosts / limit);
 

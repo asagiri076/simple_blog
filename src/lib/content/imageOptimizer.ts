@@ -164,23 +164,70 @@ export function optimizeImage(originalUrl: string, width: number, height?: numbe
   return optimizeImageUrl(originalUrl, { width, height });
 }
 
-/**
- * WebP対応の画像最適化
- */
-export function optimizeImageWebP(originalUrl: string, width: number, height?: number, quality = 80): string {
-  return optimizeImageUrl(originalUrl, { width, height, quality, format: 'webp' });
-}
 
 /**
- * AVIF対応の画像最適化（最新の高効率フォーマット）
+ * コンテンツ内の画像を最適化（サーバーサイド処理）
  */
-export function optimizeImageAVIF(originalUrl: string, width: number, height?: number, quality = 80): string {
-  return optimizeImageUrl(originalUrl, { width, height, quality, format: 'avif' });
-}
+export function optimizeImagesInContent(content: string): string {
+  let processedContent = content;
 
-/**
- * 自動フォーマット選択の画像最適化
- */
-export function optimizeImageAuto(originalUrl: string, width: number, height?: number, quality = 80): string {
-  return optimizeImageUrl(originalUrl, { width, height, quality, format: 'auto' });
+  // microCMSの画像を含むimgタグを検索・置換
+  const imgRegex = /<img[^>]*src="([^"]*microcms-assets\.io[^"]*)"[^>]*>/gi;
+  
+  processedContent = processedContent.replace(imgRegex, (match) => {
+    // src, alt, width, height属性を抽出
+    const srcMatch = match.match(/src="([^"]*)"/);
+    const altMatch = match.match(/alt="([^"]*)"/);
+    const widthMatch = match.match(/width="([^"]*)"/);
+    const heightMatch = match.match(/height="([^"]*)"/);
+    
+    if (!srcMatch || !widthMatch || !heightMatch) {
+      return match; // 必要な属性がない場合はそのまま
+    }
+
+    const src = srcMatch[1];
+    const alt = altMatch ? altMatch[1] : '';
+    const width = parseInt(widthMatch[1]);
+    const height = parseInt(heightMatch[1]);
+
+    if (!width || !height) {
+      return match; // 有効な幅・高さがない場合はそのまま
+    }
+
+    // 画像を最適化
+    const optimizedSrc = optimizeImageUrl(src, { 
+      width, 
+      height, 
+      format: 'avif', 
+      quality: 70 
+    });
+    
+    // 最適化された画像HTMLを作成
+    const optimizedImageHtml = `
+      <figure>
+        <img
+          src="${optimizedSrc}"
+          alt="${alt}"
+          width="${width}"
+          height="${height}"
+          class="rounded-lg"
+          loading="lazy"
+          decoding="async"
+        />
+      </figure>
+    `;
+
+    return optimizedImageHtml.trim();
+  });
+
+  // 既存のfigureタグに包まれた画像の処理は上記のimgRegexで既に処理されているため削除
+  // figureタグの処理は不要（imgRegexで既に最適化されたfigureタグに置換されるため）
+
+  // iframelyスクリプトタグを削除（グローバルでロードするため）
+  processedContent = processedContent.replace(
+    /<script[^>]*src="https:\/\/cdn\.iframe\.ly\/embed\.js"[^>]*><\/script>/gi,
+    ''
+  );
+
+  return processedContent;
 }

@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
-import { fetchPosts, fetchCategories, fetchCategoriesWithPostCount } from '@/lib/microcms';
-import ArticleLayout from '@/components/ArticleLayout';
+import { getPostsByCategory, getCategoriesWithCount, getCategories } from '@/lib/data/prebuiltData';
+import ArticleLayout from '@/components/layout/ArticleLayout';
 
 interface PageProps {
   params: Promise<{ tagId: string; pageNum: string }>;
@@ -20,14 +20,9 @@ export default async function TagPaginatedPage({ params }: PageProps) {
   const offset = (currentPage - 1) * limit;
 
   try {
-    const [postsData, categoriesData] = await Promise.all([
-      fetchPosts({ 
-        limit,
-        offset,
-        orders: '-publishedAt',
-        filters: `categories[contains]${tagId}`
-      }),
-      fetchCategoriesWithPostCount()
+    const [categoryPosts, categoriesData] = await Promise.all([
+      getPostsByCategory(tagId),
+      getCategoriesWithCount()
     ]);
 
     const currentCategory = categoriesData.find(cat => cat.id === tagId);
@@ -36,18 +31,21 @@ export default async function TagPaginatedPage({ params }: PageProps) {
       notFound();
     }
 
-    const totalPages = Math.ceil(postsData.totalCount / limit);
+    const totalPages = Math.ceil(categoryPosts.length / limit);
 
     // ページ番号が総ページ数を超えている場合は404
     if (currentPage > totalPages) {
       notFound();
     }
 
+    // ページングされた記事を取得
+    const posts = categoryPosts.slice(offset, offset + limit);
+
     return (
       <ArticleLayout
         title={currentCategory.name}
         subtitle="タグ"
-        posts={postsData.contents}
+        posts={posts}
         categories={categoriesData}
         currentPage={currentPage}
         totalPages={totalPages}
@@ -65,8 +63,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const currentPage = parseInt(pageNum);
 
   try {
-    const categoriesData = await fetchCategories();
-    const currentCategory = categoriesData.contents.find(cat => cat.id === tagId);
+    const categoriesData = await getCategories();
+    const currentCategory = categoriesData.find(cat => cat.id === tagId);
     
     if (!currentCategory) {
       return {
@@ -106,19 +104,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export async function generateStaticParams() {
   try {
-    const categoriesData = await fetchCategories();
+    const categoriesData = await getCategoriesWithCount();
     const params = [];
+    const limit = 10;
 
     // 各カテゴリのページ数を計算
-    for (const category of categoriesData.contents) {
-      const postsData = await fetchPosts({
-        limit: 1,
-        filters: `categories[contains]${category.id}`
-      });
-      
-      const totalPosts = postsData.totalCount;
-      const limit = 10;
-      const totalPages = Math.ceil(totalPosts / limit);
+    for (const category of categoriesData) {
+      const totalPages = Math.ceil(category.postCount / limit);
 
       // 各ページのパラメータを生成
       for (let page = 1; page <= totalPages; page++) {

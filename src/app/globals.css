@@ -113,7 +113,7 @@ html {
   }
   
   .prose ul {
-    @apply list-none mb-6 space-y-2 pl-0;
+    @apply list-none space-y-2 pl-0;
   }
   
   .prose ul li {
@@ -127,7 +127,7 @@ html {
   }
   
   .prose ol {
-    @apply list-none mb-6 space-y-2 pl-0;
+    @apply list-none space-y-2 pl-0;
     counter-reset: custom-counter;
   }
   
@@ -210,6 +210,53 @@ html {
 
   .prose .iframely-embed{
     @apply my-6;
+  }
+
+  /* Table of Contents Styles */
+  .prose .table-of-contents {
+    @apply border border-primary-300 rounded-lg px-6 pt-6 pb-2 mb-8;
+  }
+
+  .prose .table-of-contents .toc-header h2 {
+    @apply text-lg font-bold mb-2 text-primary-800 border-none mt-0 py-0;
+  }
+
+  .prose .table-of-contents .toc-content {
+    @apply space-y-2;
+  }
+
+  .prose .table-of-contents .toc-list,
+  .prose .table-of-contents .toc-sublist {
+    @apply list-none space-y-1 pl-0;
+  }
+
+  .prose .table-of-contents .toc-sublist {
+    @apply pl-4 mt-1;
+  }
+
+  .prose .table-of-contents .toc-item {
+    @apply relative;
+  }
+
+  .prose .table-of-contents .toc-link {
+    @apply block py-1 px-3 rounded-md text-sm font-medium no-underline transition-all duration-200;
+    color: theme('colors.gray.700');
+  }
+
+  .prose .table-of-contents .toc-link:hover {
+    @apply bg-gray-50 text-primary-700;
+  }
+
+  .prose .table-of-contents .toc-link[data-level="2"] {
+    @apply text-base;
+  }
+
+  .prose .table-of-contents .toc-link[data-level="3"] {
+    @apply text-sm;
+  }
+
+  .prose .table-of-contents .toc-link[data-level="4"] {
+    @apply text-sm;
   }
 }
 

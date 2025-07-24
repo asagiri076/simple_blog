@@ -1,10 +1,10 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { Post } from '@/types/microcms';
-import { generateArticleUrl } from '@/lib/articleUrl';
-import CategoryTags from './CategoryTags';
+import { generateArticleUrl } from '@/lib/utils/articleUrl';
+import TagList from '@/components/common/TagList';
 import DateDisplay from './DateDisplay';
-import { generateResponsiveImageSet } from '@/lib/imageOptimizer';
+import { generateResponsiveImageSet } from '@/lib/content/imageOptimizer';
 
 interface ArticleListProps {
   posts: Post[];
@@ -57,7 +57,7 @@ export default function ArticleList({ posts }: ArticleListProps) {
                   {post.excerpt}
                 </p>
                 <div className="flex items-center justify-between">
-                  <CategoryTags categories={post.categories} variant="list" />
+                  <TagList categories={post.categories} variant="list" />
                   <DateDisplay 
                     date={post.publishedAt} 
                     className="text-sm text-gray-500" 
