@@ -8,7 +8,8 @@
   },
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "prebuild": "tsx scripts/prebuild/prebuild-data.ts",
+    "build": "npm run prebuild && next build",
     "dev-build": "next build && cp dev-robots.txt out/robots.txt",
     "dev-server": "npx http-server out -p 3001 -c-1",
     "start": "next start",
@@ -18,6 +19,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@next/third-parties": "^15.3.4",
     "@tailwindcss/postcss": "^4.1.8",
     "@types/dompurify": "^3.0.5",
     "@types/jsdom": "^21.1.7",
@@ -35,9 +37,11 @@
     "@types/prismjs": "^1.26.5",
     "@types/react": "^19.1.7",
     "@types/react-dom": "^19.1.6",
+    "dotenv": "^16.6.1",
     "eslint": "^9.29.0",
     "eslint-config-next": "^15.3.4",
     "http-server": "^14.1.1",
+    "tsx": "^4.19.2",
     "typescript": "^5.8.3"
   }
 }
