@@ -355,3 +355,133 @@ code[class*="language-"] {
   border: 1px solid theme('colors.gray.200') !important;
   font-size: 13px !important;
 }
+
+
+/***************************
+ カエレバ、ヨメレバ、トマレバ 
+***************************/
+/* 基本style */
+.kaerebalink-box,
+.booklink-box,
+.tomarebalink-box{
+border: 3px double #ccc;
+padding: 3%;
+margin: 1em 0 2.5em;
+overflow: hidden;
+font-size: small;
+}
+.kaerebalink-box a,
+.booklink-box a,
+.tomarebalink-box a{
+text-decoration: none;
+color: initial;
+font-size: 0.8em;
+line-height: 1em;
+font-weight: normal;
+}
+.kaerebalink-box a[target="_blank"]::after,
+.booklink-box a[target="_blank"]::after,
+.tomarebalink-box a[target="_blank"]::after{
+content: none;
+}
+.kaerebalink-image,
+.booklink-image,
+.tomarebalink-image{
+max-width: 150px;
+text-align: center;
+margin: 10px auto!important;
+float: none!important;
+}
+.kaerebalink-name,
+.booklink-name,
+.tomarebalink-name{
+font-weight: bold;
+font-size: 120%;
+line-height: 1.8!important;
+margin-bottom: 10px!important;
+}
+.kaerebalink-name p:empty,
+.booklink-name p:empty,
+.tomarebalink-name p:empty{
+display: none;
+}
+.kaerebalink-powered-date,
+.booklink-powered-date,
+.tomarebalink-powered-date,
+.kaerebalink-detail,
+.booklink-detail,
+.tomarebalink-address{
+font-size: 10px!important;
+font-weight: normal;
+}
+.kaerebalink-link1,
+.booklink-link2,
+.tomarebalink-link1{
+overflow: hidden;
+}
+.kaerebalink-link1 div,
+.booklink-link2 div,
+.tomarebalink-link1 div{
+background-image: none!important;
+margin: 0!important;
+padding: 3px!important;
+display: inline-block!important;
+width: 48.5%;
+}
+.kaerebalink-link1 div a,
+.booklink-link2 div a,
+.tomarebalink-link1 div a{
+border-width: 2px;
+border-style: solid;
+font-size: 90%;
+font-weight: bold;
+border-radius: 5px;
+padding: 0.7em 0.3em;
+width: 100%;
+text-align: center;
+display: block;
+box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+.kaerebalink-link1 div a:hover,
+.booklink-link2 div a:hover,
+.tomarebalink-link1 div a:hover{
+color: #fff;
+box-shadow: 1px 4px 4px rgba(0, 0, 0, 0.15);
+transform:translate(-1px, -2px);
+}
+.kaerebalink-link1 div a:active,
+.booklink-link2 div a:active,
+.tomarebalink-link1 div a:active{
+transform:translate(0, 1px);
+}
+.kaerebalink-link1 div img,
+.booklink-link2 div img,
+.tomarebalink-link1 div img{
+display: none;
+}
+
+.shoplinkamazon a{
+background-color: #f8b500;
+color: #FFFFFF;
+}
+.shoplinkrakuten a{
+	background-color: #e03400;
+color: #FFFFFF;
+}
+.shoplinkyahoo a{
+	background-color: #d60abe;
+color: #FFFFFF;
+}
+
+.shoplinkamazon a:hover{
+background-color: #f2bc35;
+border-color: #f2bc35;
+}
+.shoplinkrakuten a:hover{
+background-color: #d91414;
+border-color: #d91414;
+}
+.shoplinkyahoo a:hover{
+background-color: #d332be;
+border-color: #d332be;
+}
