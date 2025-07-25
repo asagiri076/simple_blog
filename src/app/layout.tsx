@@ -5,9 +5,10 @@ import Footer from '@/components/layout/Footer'
 import AdProvider from '@/components/provider/AdProvider'
 import { GoogleAnalytics } from '@next/third-parties/google'
 import Script from 'next/script'
+import { siteConfig } from '@/lib/config/site'
 
 export const metadata: Metadata = {
-  title: 'Simple Blog',
+  title: `${siteConfig.title}`,
   description: 'A simple blog built with Next.js and microCMS',
 }
 

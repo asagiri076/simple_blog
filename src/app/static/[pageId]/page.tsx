@@ -4,6 +4,7 @@ import { getStaticPageByPageId, getAllStaticPages } from '@/lib/data/prebuiltDat
 import StaticPageLayout from '@/components/article/static/StaticPageLayout'
 import CodeHighlighter from '@/components/article/content/CodeHighlighter'
 import HtmlComponentRenderer from '@/components/article/content/HtmlComponentRenderer'
+import { siteConfig } from '@/lib/config/site'
 
 interface PageProps {
   params: Promise<{ pageId: string }>
@@ -45,13 +46,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     
     if (!staticPage) {
       return {
-        title: 'Page Not Found | Simple Blog',
+        title: `Page Not Found | ${siteConfig.title}`,
         description: 'The requested static page could not be found.',
       }
     }
     
     return {
-      title: `${staticPage.title} | Simple Blog`,
+      title: `${staticPage.title} | ${siteConfig.title}`,
       description: staticPage.title,
       openGraph: {
         title: staticPage.title,
@@ -66,7 +67,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     }
   } catch {
     return {
-      title: 'Page Not Found | Simple Blog',
+      title: `Page Not Found | ${siteConfig.title}`,
       description: 'The requested static page could not be found.',
     }
   }

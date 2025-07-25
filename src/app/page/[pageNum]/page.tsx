@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import { getAllPosts, getCategoriesWithCount } from '@/lib/data/prebuiltData';
 import ArticleLayout from '@/components/article/list/ArticleLayout';
+import { siteConfig } from '@/lib/config/site';
 
 interface PageProps {
   params: Promise<{ pageNum: string }>;
@@ -57,13 +58,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   if (currentPage === 1) {
     return {
-      title: 'Simple Blog',
+      title: `${siteConfig.title}`,
       description: 'A simple blog built with Next.js and microCMS',
     };
   }
 
   return {
-    title: `Page ${currentPage} | Simple Blog`,
+    title: `Page ${currentPage} | ${siteConfig.title}`,
     description: `Page ${currentPage} of blog posts`,
   };
 }

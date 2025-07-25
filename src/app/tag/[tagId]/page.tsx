@@ -1,6 +1,7 @@
 import { redirect } from 'next/navigation';
 import { Metadata } from 'next';
 import { getCategoriesWithMeta } from '@/lib/data/prebuiltData';
+import { siteConfig } from '@/lib/config/site';
 
 interface PageProps {
   params: Promise<{ tagId: string }>;
@@ -21,23 +22,23 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     
     if (!currentCategory) {
       return {
-        title: 'Tag Not Found | Simple Blog',
+        title: `Tag Not Found | ${siteConfig.title}`,
         description: 'The requested tag could not be found.',
       };
     }
     
     return {
-      title: `${currentCategory.name} | Simple Blog`,
+      title: `${currentCategory.name} | ${siteConfig.title}`,
       description: `Articles tagged with ${currentCategory.name}`,
       openGraph: {
-        title: `${currentCategory.name} | Simple Blog`,
+        title: `${currentCategory.name} | ${siteConfig.title}`,
         description: `Articles tagged with ${currentCategory.name}`,
         type: 'website',
       },
     };
   } catch {
     return {
-      title: 'Tag Not Found | Simple Blog',
+      title: `Tag Not Found | ${siteConfig.title}`,
       description: 'The requested tag could not be found.',
     };
   }

@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import { getPostsByCategory, getCategoriesWithCount, getCategories } from '@/lib/data/prebuiltData';
 import ArticleLayout from '@/components/article/list/ArticleLayout';
+import { siteConfig } from '@/lib/config/site';
 
 interface PageProps {
   params: Promise<{ tagId: string; pageNum: string }>;
@@ -68,17 +69,17 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     
     if (!currentCategory) {
       return {
-        title: 'Tag Not Found | Simple Blog',
+        title: `Tag Not Found | ${siteConfig.title}`,
         description: 'The requested tag could not be found.',
       };
     }
 
     if (currentPage === 1) {
       return {
-        title: `${currentCategory.name} | Simple Blog`,
+        title: `${currentCategory.name} | ${siteConfig.title}`,
         description: `Articles tagged with ${currentCategory.name}`,
         openGraph: {
-          title: `${currentCategory.name} | Simple Blog`,
+          title: `${currentCategory.name} | ${siteConfig.title}`,
           description: `Articles tagged with ${currentCategory.name}`,
           type: 'website',
         },
@@ -86,17 +87,17 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     }
 
     return {
-      title: `${currentCategory.name} - Page ${currentPage} | Simple Blog`,
+      title: `${currentCategory.name} - Page ${currentPage} | ${siteConfig.title}`,
       description: `Page ${currentPage} of articles tagged with ${currentCategory.name}`,
       openGraph: {
-        title: `${currentCategory.name} - Page ${currentPage} | Simple Blog`,
+        title: `${currentCategory.name} - Page ${currentPage} | ${siteConfig.title}`,
         description: `Page ${currentPage} of articles tagged with ${currentCategory.name}`,
         type: 'website',
       },
     };
   } catch {
     return {
-      title: 'Tag Not Found | Simple Blog',
+      title: `Tag Not Found | ${siteConfig.title}`,
       description: 'The requested tag could not be found.',
     };
   }
