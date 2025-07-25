@@ -35,7 +35,8 @@ async function loadPrebuiltData(): Promise<PrebuiltData> {
   // 新しい読み込み処理を開始
   loadingPromise = (async () => {
     try {
-      const dataPath = join(process.cwd(), 'prebuild-data', 'prebuilt.json');
+      // 環境変数でパスを指定可能、デフォルトは既存のパス
+      const dataPath = process.env.PREBUILT_DATA_PATH || join(process.cwd(), 'prebuild-data', 'prebuilt.json');
       const jsonData = readFileSync(dataPath, 'utf-8');
       const data: PrebuiltData = JSON.parse(jsonData);
       

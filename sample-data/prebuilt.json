@@ -1,0 +1,289 @@
+{
+  "posts": [
+    {
+      "id": "sample-post-1",
+      "createdAt": "2025-01-01T00:00:00.000Z",
+      "updatedAt": "2025-01-01T00:00:00.000Z",
+      "publishedAt": "2025-01-01T00:00:00.000Z",
+      "revisedAt": "2025-01-01T00:00:00.000Z",
+      "title": "サンプル記事1 - Next.js 15での静的サイト生成について",
+      "contents": "<h2>Next.js 15の新機能</h2><p>Next.js 15では多くの新機能が追加されました。特に静的サイト生成（SSG）の機能が強化され、より高速なサイトを構築できるようになりました。</p><h3>主な改善点</h3><ul><li>ビルド時間の短縮</li><li>キャッシュ機能の向上</li><li>TypeScriptサポートの強化</li></ul><p>この記事では、これらの新機能について詳しく解説していきます。</p>",
+      "excerpt": "Next.js 15での静的サイト生成について詳しく解説します。",
+      "eyecatch": {
+        "url": "https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?w=800&h=400",
+        "width": 800,
+        "height": 400
+      },
+      "categories": [
+        {
+          "id": "tech",
+          "createdAt": "2025-01-01T00:00:00.000Z",
+          "updatedAt": "2025-01-01T00:00:00.000Z",
+          "publishedAt": "2025-01-01T00:00:00.000Z",
+          "revisedAt": "2025-01-01T00:00:00.000Z",
+          "name": "技術"
+        }
+      ],
+      "tags": [],
+      "components": null
+    },
+    {
+      "id": "sample-post-2",
+      "createdAt": "2025-01-02T00:00:00.000Z",
+      "updatedAt": "2025-01-02T00:00:00.000Z",
+      "publishedAt": "2025-01-02T00:00:00.000Z",
+      "revisedAt": "2025-01-02T00:00:00.000Z",
+      "title": "サンプル記事2 - TypeScriptベストプラクティス",
+      "contents": "<h2>TypeScriptを使った開発</h2><p>TypeScriptは型安全性を提供し、大規模なアプリケーション開発において重要な役割を果たします。</p><h3>おすすめの設定</h3><p>以下のような設定がおすすめです：</p><pre><code class=\"language-json\">{\n  \"compilerOptions\": {\n    \"strict\": true,\n    \"noImplicitAny\": true,\n    \"strictNullChecks\": true\n  }\n}</code></pre><p>適切な型定義により、開発効率が大幅に向上します。</p>",
+      "excerpt": "TypeScriptを使った効率的な開発方法について解説します。",
+      "eyecatch": {
+        "url": "https://images.unsplash.com/photo-1516116216624-53e697fedbea?w=800&h=400",
+        "width": 800,
+        "height": 400
+      },
+      "categories": [
+        {
+          "id": "tech",
+          "createdAt": "2025-01-01T00:00:00.000Z",
+          "updatedAt": "2025-01-01T00:00:00.000Z",
+          "publishedAt": "2025-01-01T00:00:00.000Z",
+          "revisedAt": "2025-01-01T00:00:00.000Z",
+          "name": "技術"
+        }
+      ],
+      "tags": [],
+      "components": null
+    },
+    {
+      "id": "sample-post-3",
+      "createdAt": "2025-01-03T00:00:00.000Z",
+      "updatedAt": "2025-01-03T00:00:00.000Z",
+      "publishedAt": "2025-01-03T00:00:00.000Z",
+      "revisedAt": "2025-01-03T00:00:00.000Z",
+      "title": "サンプル記事3 - Tailwind CSSでのレスポンシブデザイン",
+      "contents": "<h2>Tailwind CSSの活用</h2><p>Tailwind CSSは、ユーティリティファーストのCSSフレームワークです。レスポンシブデザインの実装が非常に簡単になります。</p><h3>基本的な使い方</h3><p>以下のクラスを使って、簡単にレスポンシブデザインを実装できます：</p><ul><li><code>sm:</code> - 640px以上</li><li><code>md:</code> - 768px以上</li><li><code>lg:</code> - 1024px以上</li><li><code>xl:</code> - 1280px以上</li></ul><p>例えば、<code>grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3</code>のように記述することで、画面サイズに応じてグリッドのカラム数を変更できます。</p>",
+      "excerpt": "Tailwind CSSを使ったレスポンシブデザインの実装方法を紹介します。",
+      "eyecatch": {
+        "url": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&h=400",
+        "width": 800,
+        "height": 400
+      },
+      "categories": [
+        {
+          "id": "design",
+          "createdAt": "2025-01-01T00:00:00.000Z",
+          "updatedAt": "2025-01-01T00:00:00.000Z",
+          "publishedAt": "2025-01-01T00:00:00.000Z",
+          "revisedAt": "2025-01-01T00:00:00.000Z",
+          "name": "デザイン"
+        }
+      ],
+      "tags": [],
+      "components": null
+    },
+    {
+      "id": "sample-post-4",
+      "createdAt": "2025-01-04T00:00:00.000Z",
+      "updatedAt": "2025-01-04T00:00:00.000Z",
+      "publishedAt": "2025-01-04T00:00:00.000Z",
+      "revisedAt": "2025-01-04T00:00:00.000Z",
+      "title": "サンプル記事4 - microCMSとNext.jsの連携",
+      "contents": "<h2>ヘッドレスCMSとの連携</h2><p>microCMSは日本製のヘッドレスCMSです。Next.jsとの連携により、効率的なコンテンツ管理が可能になります。</p><h3>実装のポイント</h3><ol><li>API KEYの設定</li><li>型定義の作成</li><li>データフェッチング関数の実装</li></ol><p>静的サイト生成（SSG）と組み合わせることで、高速で安全なWebサイトを構築できます。</p><p><span class=\"html_component_id\">sample_product</span></p>",
+      "excerpt": "microCMSとNext.jsを連携してヘッドレスCMSサイトを構築する方法を解説します。",
+      "eyecatch": {
+        "url": "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=400",
+        "width": 800,
+        "height": 400
+      },
+      "categories": [
+        {
+          "id": "tech",
+          "createdAt": "2025-01-01T00:00:00.000Z",
+          "updatedAt": "2025-01-01T00:00:00.000Z",
+          "publishedAt": "2025-01-01T00:00:00.000Z",
+          "revisedAt": "2025-01-01T00:00:00.000Z",
+          "name": "技術"
+        }
+      ],
+      "tags": [],
+      "components": [
+        {
+          "fieldId": "html_component",
+          "component_id": "sample_product",
+          "component": "<div class=\"bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-lg p-6 my-6\"><h4 class=\"text-lg font-semibold text-blue-900 mb-3\">📚 おすすめ参考書</h4><div class=\"flex items-center space-x-4\"><div class=\"w-16 h-20 bg-blue-200 rounded flex items-center justify-center\"><span class=\"text-blue-600 text-xl\">📖</span></div><div class=\"flex-1\"><h5 class=\"font-medium text-gray-900\">Next.js実践入門</h5><p class=\"text-sm text-gray-600 mt-1\">Next.jsの基礎から実践的な使い方まで詳しく解説した一冊です。</p><div class=\"mt-2\"><span class=\"inline-block bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded\">初心者向け</span></div></div></div></div>"
+        }
+      ]
+    },
+    {
+      "id": "sample-post-5",
+      "createdAt": "2025-01-05T00:00:00.000Z",
+      "updatedAt": "2025-01-05T00:00:00.000Z",
+      "publishedAt": "2025-01-05T00:00:00.000Z",
+      "revisedAt": "2025-01-05T00:00:00.000Z",
+      "title": "サンプル記事5 - パフォーマンス最適化のテクニック",
+      "contents": "<h2>Webサイトの高速化</h2><p>Webサイトのパフォーマンスは、ユーザーエクスペリエンスに直結する重要な要素です。</p><h3>主な最適化手法</h3><ul><li>画像の最適化（WebP形式の使用）</li><li>コードスプリッティング</li><li>遅延読み込み（Lazy Loading）</li><li>CDNの活用</li></ul><p>これらの手法を適切に組み合わせることで、大幅な高速化が期待できます。</p>",
+      "excerpt": "Webサイトのパフォーマンスを向上させるための実践的なテクニックを紹介します。",
+      "eyecatch": {
+        "url": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=400",
+        "width": 800,
+        "height": 400
+      },
+      "categories": [
+        {
+          "id": "tech",
+          "createdAt": "2025-01-01T00:00:00.000Z",
+          "updatedAt": "2025-01-01T00:00:00.000Z",
+          "publishedAt": "2025-01-01T00:00:00.000Z",
+          "revisedAt": "2025-01-01T00:00:00.000Z",
+          "name": "技術"
+        }
+      ],
+      "tags": [],
+      "components": null
+    }
+  ],
+  "categories": [
+    {
+      "id": "tech",
+      "createdAt": "2025-01-01T00:00:00.000Z",
+      "updatedAt": "2025-01-01T00:00:00.000Z",
+      "publishedAt": "2025-01-01T00:00:00.000Z",
+      "revisedAt": "2025-01-01T00:00:00.000Z",
+      "name": "技術"
+    },
+    {
+      "id": "design",
+      "createdAt": "2025-01-01T00:00:00.000Z",
+      "updatedAt": "2025-01-01T00:00:00.000Z",
+      "publishedAt": "2025-01-01T00:00:00.000Z",
+      "revisedAt": "2025-01-01T00:00:00.000Z",
+      "name": "デザイン"
+    }
+  ],
+  "staticPages": [
+    {
+      "id": "sample-about",
+      "createdAt": "2025-01-01T00:00:00.000Z",
+      "updatedAt": "2025-01-01T00:00:00.000Z",
+      "publishedAt": "2025-01-01T00:00:00.000Z",
+      "revisedAt": "2025-01-01T00:00:00.000Z",
+      "page_id": "about",
+      "title": "このサイトについて",
+      "contents": "<h2>サイトの目的</h2><p>このサイトは、Web開発に関する技術情報を共有することを目的としています。</p><h3>扱っているテーマ</h3><ul><li>Next.js</li><li>TypeScript</li><li>Tailwind CSS</li><li>ヘッドレスCMS</li></ul><p>初心者の方にも分かりやすく解説していきますので、ぜひご活用ください。</p>",
+      "components": null
+    },
+    {
+      "id": "sample-contact",
+      "createdAt": "2025-01-01T00:00:00.000Z",
+      "updatedAt": "2025-01-01T00:00:00.000Z",
+      "publishedAt": "2025-01-01T00:00:00.000Z",
+      "revisedAt": "2025-01-01T00:00:00.000Z",
+      "page_id": "contact",
+      "title": "お問い合わせ",
+      "contents": "<p>ご質問やご意見がございましたら、以下のフォームからお気軽にお問い合わせください。</p><p><span class=\"html_component_id\">contact_form</span></p>",
+      "components": [
+        {
+          "fieldId": "html_component",
+          "component_id": "contact_form",
+          "component": "<div class=\"bg-gray-50 border border-gray-200 rounded-lg p-8 my-6\"><h3 class=\"text-lg font-semibold text-gray-900 mb-4\">📧 お問い合わせフォーム</h3><p class=\"text-gray-600 mb-4\">現在、お問い合わせフォームはサンプル表示です。実際の運用では、Google FormsやFormspreeなどのサービスを利用することをおすすめします。</p><form class=\"space-y-4\"><div><label class=\"block text-sm font-medium text-gray-700 mb-1\">お名前</label><input type=\"text\" class=\"w-full px-3 py-2 border border-gray-300 rounded-md\" placeholder=\"お名前を入力してください\" disabled></div><div><label class=\"block text-sm font-medium text-gray-700 mb-1\">メールアドレス</label><input type=\"email\" class=\"w-full px-3 py-2 border border-gray-300 rounded-md\" placeholder=\"example@email.com\" disabled></div><div><label class=\"block text-sm font-medium text-gray-700 mb-1\">お問い合わせ内容</label><textarea rows=\"4\" class=\"w-full px-3 py-2 border border-gray-300 rounded-md\" placeholder=\"お問い合わせ内容をご記入ください\" disabled></textarea></div><button type=\"button\" class=\"bg-gray-400 text-white px-6 py-2 rounded-md cursor-not-allowed\" disabled>送信（サンプル）</button></form></div>"
+        }
+      ]
+    }
+  ],
+  "relatedPosts": {
+    "sample-post-1": [
+      {
+        "id": "sample-post-2",
+        "title": "サンプル記事2 - TypeScriptベストプラクティス",
+        "publishedAt": "2025-01-02T00:00:00.000Z",
+        "eyecatch": {
+          "url": "https://images.unsplash.com/photo-1516116216624-53e697fedbea?w=800&h=400",
+          "width": 800,
+          "height": 400
+        },
+        "categories": [
+          {
+            "id": "tech",
+            "name": "技術"
+          }
+        ]
+      }
+    ],
+    "sample-post-2": [
+      {
+        "id": "sample-post-1",
+        "title": "サンプル記事1 - Next.js 15での静的サイト生成について",
+        "publishedAt": "2025-01-01T00:00:00.000Z",
+        "eyecatch": {
+          "url": "https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?w=800&h=400",
+          "width": 800,
+          "height": 400
+        },
+        "categories": [
+          {
+            "id": "tech",
+            "name": "技術"
+          }
+        ]
+      }
+    ],
+    "sample-post-3": [],
+    "sample-post-4": [
+      {
+        "id": "sample-post-1",
+        "title": "サンプル記事1 - Next.js 15での静的サイト生成について",
+        "publishedAt": "2025-01-01T00:00:00.000Z",
+        "eyecatch": {
+          "url": "https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?w=800&h=400",
+          "width": 800,
+          "height": 400
+        },
+        "categories": [
+          {
+            "id": "tech",
+            "name": "技術"
+          }
+        ]
+      }
+    ],
+    "sample-post-5": [
+      {
+        "id": "sample-post-1",
+        "title": "サンプル記事1 - Next.js 15での静的サイト生成について",
+        "publishedAt": "2025-01-01T00:00:00.000Z",
+        "eyecatch": {
+          "url": "https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?w=800&h=400",
+          "width": 800,
+          "height": 400
+        },
+        "categories": [
+          {
+            "id": "tech",
+            "name": "技術"
+          }
+        ]
+      }
+    ]
+  },
+  "categoriesWithCount": [
+    {
+      "id": "tech",
+      "createdAt": "2025-01-01T00:00:00.000Z",
+      "updatedAt": "2025-01-01T00:00:00.000Z",
+      "publishedAt": "2025-01-01T00:00:00.000Z",
+      "revisedAt": "2025-01-01T00:00:00.000Z",
+      "name": "技術",
+      "postCount": 4
+    },
+    {
+      "id": "design",
+      "createdAt": "2025-01-01T00:00:00.000Z",
+      "updatedAt": "2025-01-01T00:00:00.000Z",
+      "publishedAt": "2025-01-01T00:00:00.000Z",
+      "revisedAt": "2025-01-01T00:00:00.000Z",
+      "name": "デザイン",
+      "postCount": 1
+    }
+  ],
+  "generatedAt": "2025-01-01T00:00:00.000Z"
+}

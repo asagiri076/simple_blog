@@ -12,6 +12,7 @@
     "build": "npm run prebuild && next build",
     "dev-build": "next build && cp dev-robots.txt out/robots.txt",
     "dev-server": "npx http-server out -p 3001 -c-1",
+    "sample-build": "PREBUILT_DATA_PATH=sample-data/prebuilt.json next build && cp dev-robots.txt out/robots.txt",
     "start": "next start",
     "lint": "next lint"
   },
