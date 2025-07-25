@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { Category } from '@/types/microcms';
 import { CategoryWithCount } from '@/lib/data/prebuiltData';
+import StaticPageLinks from '@/components/static/StaticPageLinks';
 
 interface SidebarProps {
   categories: Category[] | CategoryWithCount[];
@@ -46,6 +47,8 @@ export default function Sidebar({ categories }: SidebarProps) {
           <div className="text-secondary-400 text-sm text-center py-4 bg-secondary-50/50 rounded-lg border border-secondary-100/50">タグがありません</div>
         )}
       </div>
+      
+      <StaticPageLinks />
     </aside>
   );
 }
