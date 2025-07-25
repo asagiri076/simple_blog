@@ -15,7 +15,7 @@ export interface Post {
   };
   excerpt?: string;
   wp_id?: number;
-  componets?: any[];
+  components?: any[];
 }
 
 export interface Category {
@@ -50,9 +50,22 @@ export interface FetchPostsParams {
   orders?: string;
 }
 
+export interface StaticPage {
+  id: string;
+  page_id: string;
+  title: string;
+  contents: string;
+  components?: any[] | null;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+  revisedAt: string;
+}
+
 export interface PrebuiltData {
   posts: Post[];
   categories: Category[];
+  staticPages: StaticPage[];
   relatedPosts: Record<string, Post[]>;
   categoriesWithCount: Array<Category & { postCount: number }>;
   generatedAt: string;

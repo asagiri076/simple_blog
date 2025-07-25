@@ -1,12 +1,13 @@
 import { readFileSync } from 'fs';
 import { join } from 'path';
-import { Post, Category } from '@/types/microcms';
+import { Post, Category, StaticPage } from '@/types/microcms';
 
 export type CategoryWithCount = Category & { postCount: number };
 
 export interface PrebuiltData {
   posts: Post[];
   categories: Category[];
+  staticPages: StaticPage[];
   relatedPosts: Record<string, Post[]>;
   categoriesWithCount: Array<Category & { postCount: number }>;
   generatedAt: string;
@@ -147,6 +148,22 @@ export async function getCategoriesWithMeta(): Promise<{ contents: Category[]; t
     offset: 0,
     limit: data.categories.length
   };
+}
+
+/**
+ * 全静的ページを取得する（プリビルドデータから）
+ */
+export async function getAllStaticPages(): Promise<StaticPage[]> {
+  const data = await loadPrebuiltData();
+  return data.staticPages;
+}
+
+/**
+ * 特定の静的ページをpage_idで取得する（プリビルドデータから）
+ */
+export async function getStaticPageByPageId(pageId: string): Promise<StaticPage | null> {
+  const data = await loadPrebuiltData();
+  return data.staticPages.find(page => page.page_id === pageId) || null;
 }
 
 /**

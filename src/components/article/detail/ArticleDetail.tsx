@@ -36,9 +36,9 @@ export default async function ArticleDetail({ post }: ArticleDetailProps) {
             <ArticleHeader post={post} />
             
             <div className="px-4 pb-12">
-              {post.componets && post.componets.length > 0 ? (
+              {post.components && post.components.length > 0 ? (
                 <HtmlComponentRenderer 
-                  components={post.componets} 
+                  components={post.components} 
                   content={post.contents} 
                 />
               ) : (
