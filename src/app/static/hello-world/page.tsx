@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import StaticPageLayout from '@/components/static/StaticPageLayout'
+import StaticPageLayout from '@/components/article/static/StaticPageLayout'
 
 export const metadata: Metadata = {
   title: 'Hello World - Static Page',

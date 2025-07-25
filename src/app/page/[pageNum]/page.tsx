@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import { getAllPosts, getCategoriesWithCount } from '@/lib/data/prebuiltData';
-import ArticleLayout from '@/components/layout/ArticleLayout';
+import ArticleLayout from '@/components/article/list/ArticleLayout';
 
 interface PageProps {
   params: Promise<{ pageNum: string }>;

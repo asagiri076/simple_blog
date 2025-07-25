@@ -1,8 +1,8 @@
 import { Post, Category } from '@/types/microcms'
 import { CategoryWithCount } from '@/lib/data/prebuiltData'
-import ArticleList from '@/components/article/ArticleList'
-import PageNavigation from '@/components/common/PageNavigation'
-import Sidebar from '@/components/layout/Sidebar'
+import ArticleList from '@/components/article/list/ArticleList'
+import PageNavigation from '@/components/common/ui/PageNavigation'
+import Sidebar from '@/components/sidebar/Sidebar'
 
 interface ArticleLayoutProps {
   title: string

@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import { getAllPostsWithMeta, getCategoriesWithMeta, getPostByWpId, getPostById } from '@/lib/data/prebuiltData';
 import { getArticleId, extractYearMonth, parseArticleIdType } from '@/lib/utils/articleUrl';
-import ArticleDetail from '@/components/article/ArticleDetail';
+import ArticleDetail from '@/components/article/detail/ArticleDetail';
 
 // Next.js App RouterのPageProps型を利用
 interface PageProps {
