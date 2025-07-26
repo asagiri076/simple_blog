@@ -25,6 +25,6 @@ PREBUILT_DATA_PATH=/path/to/your/data.json npm run dev-build
 ## 開発
 
 ```bash
-npm run dev-build    # 開発用ビルド（microCMS取得なし）
+npm run dev-build    # 開発用ビルド
 npm run dev-server   # ビルド済みサイトのプレビュー
 ```

@@ -9,10 +9,11 @@
   "scripts": {
     "dev": "next dev",
     "prebuild": "tsx scripts/prebuild/prebuild-data.ts",
-    "build": "npm run prebuild && next build",
-    "dev-build": "next build && cp dev-robots.txt out/robots.txt",
+    "build": "npm run prebuild && next build && npm run postbuild",
+    "dev-build": "next build && BUILD_MODE=development npm run postbuild",
     "dev-server": "npx http-server out -p 3001 -c-1",
-    "sample-build": "PREBUILT_DATA_PATH=sample-data/prebuilt.json next build && cp dev-robots.txt out/robots.txt",
+    "sample-build": "PREBUILT_DATA_PATH=sample-data/prebuilt.json next build && BUILD_MODE=development npm run postbuild",
+    "postbuild": "tsx scripts/static-files/setup-static-files.ts",
     "start": "next start",
     "lint": "next lint"
   },
