@@ -6,7 +6,7 @@ import dotenv from 'dotenv';
 dotenv.config({ path: path.join(__dirname, '..', '..', '.env.local') });
 
 const isDev = process.env.BUILD_MODE === 'development';
-const adsenseId = process.env.GOOGLE_ADSENSE_CLIENT_ID;
+const adsenseId = process.env.NEXT_PUBLIC_ADSENSE_ID?.replace('ca-pub-', '');
 const outDir = path.join(__dirname, '..', '..', 'out');
 
 // robots.txt: 開発環境のみ配置
@@ -29,5 +29,5 @@ if (adsenseId) {
   fs.writeFileSync(adsDest, adsContent);
   console.log('✅ ads.txt generated with AdSense ID');
 } else {
-  console.log('ℹ️  GOOGLE_ADSENSE_CLIENT_ID not found, skipping ads.txt generation');
+  console.log('ℹ️  NEXT_PUBLIC_ADSENSE_ID not found, skipping ads.txt generation');
 }

@@ -8,13 +8,11 @@
   },
   "scripts": {
     "dev": "next dev",
-    "prebuild": "tsx scripts/prebuild/prebuild-data.ts",
-    "build": "npm run prebuild && next build && npm run postbuild",
-    "dev-build": "next build && BUILD_MODE=development npm run postbuild",
+    "fetch-data": "tsx scripts/content-data/fetch-content-data.ts",
+    "build": "npm run fetch-data && next build && npm run setup-assets",
+    "dev-build": "next build && BUILD_MODE=development npm run setup-assets",
     "dev-server": "npx http-server out -p 3001 -c-1",
-    "sample-build": "PREBUILT_DATA_PATH=sample-data/prebuilt.json next build && BUILD_MODE=development npm run postbuild",
-    "postbuild": "tsx scripts/static-files/setup-static-files.ts",
-    "start": "next start",
+    "setup-assets": "tsx scripts/static-files/setup-static-files.ts",
     "lint": "next lint"
   },
   "keywords": [],
