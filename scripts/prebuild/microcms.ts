@@ -1,4 +1,4 @@
-import { Post, Category, MicroCMSListResponse, FetchPostsParams } from './types';
+import { Post, Category, StaticPage, MicroCMSListResponse, FetchPostsParams } from './types';
 
 // 遅延初期化を行う関数
 function getMicroCMSConfig() {
@@ -87,6 +87,31 @@ export async function fetchCategories(limit: number = 100): Promise<MicroCMSList
       url: url
     });
     throw new Error(`Failed to fetch categories: ${response.status} ${response.statusText}`);
+  }
+  
+  return response.json();
+}
+
+export async function fetchStaticPages(limit: number = 100): Promise<MicroCMSListResponse<StaticPage>> {
+  // Rate limiting delay
+  await sleep(RATE_LIMIT_DELAY);
+  
+  const { baseUrl, headers } = getMicroCMSConfig();
+  
+  // すべての静的ページを取得するため、デフォルトで大きなlimitを設定
+  const searchParams = new URLSearchParams();
+  searchParams.append('limit', limit.toString());
+  
+  const url = `${baseUrl}/static_pages?${searchParams.toString()}`;
+  const response = await fetch(url, { headers });
+  
+  if (!response.ok) {
+    console.error('microCMS API Error for static pages:', {
+      status: response.status,
+      statusText: response.statusText,
+      url: url
+    });
+    throw new Error(`Failed to fetch static pages: ${response.status} ${response.statusText}`);
   }
   
   return response.json();

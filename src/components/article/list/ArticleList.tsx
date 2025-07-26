@@ -2,8 +2,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Post } from '@/types/microcms';
 import { generateArticleUrl } from '@/lib/utils/articleUrl';
-import TagList from '@/components/common/TagList';
-import DateDisplay from './DateDisplay';
+import TagList from '@/components/sidebar/TagList';
+import DateDisplay from '@/components/common/ui/DateDisplay';
 import { generateResponsiveImageSet } from '@/lib/content/imageOptimizer';
 
 interface ArticleListProps {

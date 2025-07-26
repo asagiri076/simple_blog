@@ -1,7 +1,8 @@
 import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
 import { getPostById, getAllPostsWithMeta, getCategoriesWithMeta } from '@/lib/data/prebuiltData';
-import ArticleDetail from '@/components/article/ArticleDetail';
+import ArticleDetail from '@/components/article/detail/ArticleDetail';
+import { siteConfig } from '@/lib/config/site';
 
 // Next.js App RouterのPageProps型を利用
 interface PageProps {
@@ -41,13 +42,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     
     if (!post) {
       return {
-        title: 'Article Not Found | Simple Blog',
+        title: `Article Not Found | ${siteConfig.title}`,
         description: 'The requested article could not be found.',
       };
     }
     
     return {
-      title: `${post.title} | Simple Blog`,
+      title: `${post.title} | ${siteConfig.title}`,
       description: post.excerpt || post.title,
       openGraph: {
         title: post.title,
@@ -66,7 +67,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     };
   } catch {
     return {
-      title: 'Article Not Found | Simple Blog',
+      title: `Article Not Found | ${siteConfig.title}`,
       description: 'The requested article could not be found.',
     };
   }

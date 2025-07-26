@@ -4,8 +4,8 @@
 import { config } from 'dotenv';
 import { existsSync, writeFileSync, mkdirSync } from 'fs';
 import { join } from 'path';
-import { fetchPosts, fetchCategories } from './microcms';
-import { Post, Category, PrebuiltData } from './types';
+import { fetchPosts, fetchCategories, fetchStaticPages } from './microcms';
+import { Post, Category, StaticPage, PrebuiltData } from './types';
 
 // .env.localが存在するかチェックして読み込み
 const envLocalPath = join(process.cwd(), '.env.local');
@@ -113,6 +113,18 @@ async function fetchAllPosts(): Promise<Post[]> {
 }
 
 /**
+ * 全静的ページを取得する
+ */
+async function fetchAllStaticPages(): Promise<StaticPage[]> {
+  console.log('📡 Fetching all static pages from microCMS...');
+  
+  const { contents } = await fetchStaticPages();
+  
+  console.log(`✅ Fetched ${contents.length} static pages`);
+  return contents;
+}
+
+/**
  * メインの実行関数
  */
 async function main() {
@@ -120,26 +132,42 @@ async function main() {
     console.log('🚀 Starting prebuild data generation...');
     
     // 並行してデータを取得
-    const [posts, categoriesResponse] = await Promise.all([
+    const [posts, categoriesResponse, staticPages] = await Promise.all([
       fetchAllPosts(),
-      fetchCategories()
+      fetchCategories(),
+      fetchAllStaticPages()
     ]);
 
     console.log('🔄 Processing data...');
 
+    // 記事データを正規化（componets -> components）
+    const normalizedPosts = posts.map(post => ({
+      ...post,
+      components: (post as any).componets || post.components || null,
+      componets: undefined
+    }));
+
     // 関連記事を全記事分計算
     const relatedPosts: Record<string, Post[]> = {};
-    posts.forEach(post => {
-      relatedPosts[post.id] = calculateRelatedPosts(posts, post.id);
+    normalizedPosts.forEach(post => {
+      relatedPosts[post.id] = calculateRelatedPosts(normalizedPosts, post.id);
     });
 
     // カテゴリごとの記事数を計算
-    const categoriesWithCount = calculateCategoriesWithCount(posts, categoriesResponse.contents);
+    const categoriesWithCount = calculateCategoriesWithCount(normalizedPosts, categoriesResponse.contents);
+
+    // 静的ページのデータを正規化（component -> components）
+    const normalizedStaticPages = staticPages.map(page => ({
+      ...page,
+      components: (page as any).component || page.components || null,
+      component: undefined
+    }));
 
     // プリビルドデータを作成
     const prebuiltData: PrebuiltData = {
-      posts,
+      posts: normalizedPosts,
       categories: categoriesResponse.contents,
+      staticPages: normalizedStaticPages,
       relatedPosts,
       categoriesWithCount,
       generatedAt: new Date().toISOString()
@@ -156,6 +184,7 @@ async function main() {
     console.log(`✅ Prebuild data generated successfully!`);
     console.log(`   Posts: ${posts.length}`);
     console.log(`   Categories: ${categoriesResponse.contents.length}`);
+    console.log(`   Static pages: ${staticPages.length}`);
     console.log(`   Related posts calculated: ${Object.keys(relatedPosts).length}`);
     console.log(`   Output: ${dataPath}`);
     

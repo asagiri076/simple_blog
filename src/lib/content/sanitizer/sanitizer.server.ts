@@ -8,18 +8,19 @@ const SANITIZE_CONFIG = {
     'div', 'span', 'p', 'a', 'img', 'strong', 'em', 'b', 'i',
     'ul', 'ol', 'li', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
     'br', 'hr', 'blockquote', 'pre', 'code', 'table', 'thead',
-    'tbody', 'tr', 'td', 'th', 'small', 'sub', 'sup'
+    'tbody', 'tr', 'td', 'th', 'small', 'sub', 'sup', 'iframe'
   ],
   
   // 許可する属性（最小限）
   ALLOWED_ATTR: [
     'href', 'src', 'alt', 'title', 'class', 'id', 'style',
-    'target', 'rel', 'width', 'height', 'colspan', 'rowspan'
+    'target', 'rel', 'width', 'height', 'colspan', 'rowspan',
+    'frameborder', 'marginheight', 'marginwidth', 'allow', 'allowfullscreen', 'scrolling'
   ],
   
   // 危険なものを明示的に禁止
   FORBID_TAGS: [
-    'script', 'iframe', 'form', 'input', 'textarea', 'style', 
+    'script', 'form', 'input', 'textarea', 'style', 
     'link', 'video', 'audio', 'embed', 'object', 'applet',
     'meta', 'base'
   ],

@@ -1,15 +1,15 @@
 import { Post, Category } from '@/types/microcms'
 import ArticleHeader from './ArticleHeader'
-import Sidebar from '@/components/layout/Sidebar'
-import CodeHighlighter from '@/components/content/CodeHighlighter'
-import HtmlComponentRenderer from '@/components/content/HtmlComponentRenderer'
-import AdUnit from '@/components/common/AdUnit'
+import Sidebar from '@/components/sidebar/Sidebar'
+import CodeHighlighter from '@/components/article/content/CodeHighlighter'
+import HtmlComponentRenderer from '@/components/article/content/HtmlComponentRenderer'
+import AdUnit from '@/components/common/ad/AdUnit'
 import ArticleNavigation from './ArticleNavigation'
 import { getRelatedPostsServer, getAdjacentPosts, getCategoriesWithCount } from '@/lib/data/prebuiltData'
 import Link from 'next/link'
 import Image from 'next/image'
 import { generateArticleUrl } from '@/lib/utils/articleUrl'
-import DateDisplay from './DateDisplay'
+import DateDisplay from '@/components/common/ui/DateDisplay'
 import { generateResponsiveImageSet } from '@/lib/content/imageOptimizer'
 
 interface ArticleDetailProps {
@@ -36,9 +36,9 @@ export default async function ArticleDetail({ post }: ArticleDetailProps) {
             <ArticleHeader post={post} />
             
             <div className="px-4 pb-12">
-              {post.componets && post.componets.length > 0 ? (
+              {post.components && post.components.length > 0 ? (
                 <HtmlComponentRenderer 
-                  components={post.componets} 
+                  components={post.components} 
                   content={post.contents} 
                 />
               ) : (

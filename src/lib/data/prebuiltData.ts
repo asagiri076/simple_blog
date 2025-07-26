@@ -1,12 +1,13 @@
 import { readFileSync } from 'fs';
 import { join } from 'path';
-import { Post, Category } from '@/types/microcms';
+import { Post, Category, StaticPage } from '@/types/microcms';
 
 export type CategoryWithCount = Category & { postCount: number };
 
 export interface PrebuiltData {
   posts: Post[];
   categories: Category[];
+  staticPages: StaticPage[];
   relatedPosts: Record<string, Post[]>;
   categoriesWithCount: Array<Category & { postCount: number }>;
   generatedAt: string;
@@ -34,7 +35,8 @@ async function loadPrebuiltData(): Promise<PrebuiltData> {
   // 新しい読み込み処理を開始
   loadingPromise = (async () => {
     try {
-      const dataPath = join(process.cwd(), 'prebuild-data', 'prebuilt.json');
+      // 環境変数でパスを指定可能、デフォルトは既存のパス
+      const dataPath = process.env.PREBUILT_DATA_PATH || join(process.cwd(), 'prebuild-data', 'prebuilt.json');
       const jsonData = readFileSync(dataPath, 'utf-8');
       const data: PrebuiltData = JSON.parse(jsonData);
       
@@ -147,6 +149,22 @@ export async function getCategoriesWithMeta(): Promise<{ contents: Category[]; t
     offset: 0,
     limit: data.categories.length
   };
+}
+
+/**
+ * 全静的ページを取得する（プリビルドデータから）
+ */
+export async function getAllStaticPages(): Promise<StaticPage[]> {
+  const data = await loadPrebuiltData();
+  return data.staticPages;
+}
+
+/**
+ * 特定の静的ページをpage_idで取得する（プリビルドデータから）
+ */
+export async function getStaticPageByPageId(pageId: string): Promise<StaticPage | null> {
+  const data = await loadPrebuiltData();
+  return data.staticPages.find(page => page.page_id === pageId) || null;
 }
 
 /**

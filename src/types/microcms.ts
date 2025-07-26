@@ -25,7 +25,19 @@ export interface Post {
     height: number;
   };
   categories: Category[];
-  componets?: HtmlComponent[];
+  components?: HtmlComponent[];
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+  revisedAt: string;
+}
+
+export interface StaticPage {
+  id: string;
+  page_id: string;
+  title: string;
+  contents: string;
+  components?: HtmlComponent[] | null;
   createdAt: string;
   updatedAt: string;
   publishedAt: string;
