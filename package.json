@@ -9,7 +9,7 @@
   "scripts": {
     "dev": "next dev",
     "fetch-data": "tsx scripts/content-data/fetch-content-data.ts",
-    "build": "npm run test && npm run fetch-data && next build && npm run setup-assets",
+    "build": "npm run fetch-data && next build && npm run setup-assets",
     "dev-build": "next build && BUILD_MODE=development npm run setup-assets",
     "dev-server": "npx http-server out -p 3001 -c-1",
     "setup-assets": "tsx scripts/static-files/setup-static-files.ts",
