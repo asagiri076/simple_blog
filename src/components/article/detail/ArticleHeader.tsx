@@ -28,7 +28,6 @@ export default function ArticleHeader({ post }: ArticleHeaderProps) {
                   height={400}
                   className="object-contain rounded-lg shadow-sm"
                   sizes={imageSet.sizes}
-                  priority
                 />
               );
             })()}
