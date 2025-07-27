@@ -4,8 +4,8 @@ test.describe('ホームページ', () => {
   test('ページトップが正常に表示される', async ({ page }) => {
     await page.goto('/');
     
-    // ページタイトルの確認
-    await expect(page).toHaveTitle(/マイブログ|Simple Blog/);
+    // ページタイトルの確認（E2E用設定を反映）
+    await expect(page).toHaveTitle(/E2Eテスト用ブログ/);
     
     // メインヘッダーの確認
     await expect(page.locator('h1')).toBeVisible();
