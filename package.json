@@ -9,13 +9,16 @@
   "scripts": {
     "dev": "next dev",
     "fetch-data": "tsx scripts/content-data/fetch-content-data.ts",
-    "build": "npm run fetch-data && next build && npm run setup-assets",
+    "build": "npm run test && npm run fetch-data && next build && npm run setup-assets",
     "dev-build": "next build && BUILD_MODE=development npm run setup-assets",
     "dev-server": "npx http-server out -p 3001 -c-1",
     "setup-assets": "tsx scripts/static-files/setup-static-files.ts",
-    "test": "vitest",
-    "test:ui": "vitest --ui",
-    "test:run": "vitest run",
+    "test": "npm run test:unit && npm run test:e2e",
+    "test:unit": "vitest run",
+    "test:unit:watch": "vitest",
+    "test:unit:ui": "vitest --ui",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
     "lint": "next lint"
   },
   "keywords": [],
@@ -34,6 +37,7 @@
     "tailwindcss": "^4.1.8"
   },
   "devDependencies": {
+    "@playwright/test": "^1.54.1",
     "@types/jsdom": "^21.1.7",
     "@types/node": "^24.0.0",
     "@types/prismjs": "^1.26.5",
