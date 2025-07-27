@@ -19,9 +19,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ja">
-      <head>
-        <script async src="https://cdn.iframe.ly/embed.js"></script>
-      </head>
       <body className="min-h-screen bg-gray-50">
         <Header />
         <AdProvider>
@@ -33,12 +30,15 @@ export default function RootLayout({
         {process.env.NEXT_PUBLIC_GA_ID && (
           <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_ID} debugMode={process.env.NEXT_PUBLIC_DEBUG_MODE === 'true'} />
         )}
+        <Script
+          src="https://cdn.iframe.ly/embed.js"
+          strategy="lazyOnload"
+        />
         {process.env.NEXT_PUBLIC_ADSENSE_ID && (
           <Script
-            async
             src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${process.env.NEXT_PUBLIC_ADSENSE_ID}`}
             crossOrigin="anonymous"
-            // strategy="lazyOnload"
+            strategy="lazyOnload"
           />
         )}
       </body>
