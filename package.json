@@ -8,12 +8,17 @@
   },
   "scripts": {
     "dev": "next dev",
-    "prebuild": "tsx scripts/prebuild/prebuild-data.ts",
-    "build": "npm run prebuild && next build",
-    "dev-build": "next build && cp dev-robots.txt out/robots.txt",
+    "fetch-data": "tsx scripts/content-data/fetch-content-data.ts",
+    "build": "npm run test && npm run fetch-data && next build && npm run setup-assets",
+    "dev-build": "next build && BUILD_MODE=development npm run setup-assets",
     "dev-server": "npx http-server out -p 3001 -c-1",
-    "sample-build": "PREBUILT_DATA_PATH=sample-data/prebuilt.json next build && cp dev-robots.txt out/robots.txt",
-    "start": "next start",
+    "setup-assets": "tsx scripts/static-files/setup-static-files.ts",
+    "test": "npm run test:unit && npm run test:e2e",
+    "test:unit": "vitest run",
+    "test:unit:watch": "vitest",
+    "test:unit:ui": "vitest --ui",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
     "lint": "next lint"
   },
   "keywords": [],
@@ -23,9 +28,7 @@
     "@next/third-parties": "^15.3.4",
     "@tailwindcss/postcss": "^4.1.8",
     "@types/dompurify": "^3.0.5",
-    "@types/jsdom": "^21.1.7",
     "dompurify": "^3.2.6",
-    "jsdom": "^26.1.0",
     "next": "^15.3.3",
     "postcss": "^8.5.4",
     "prismjs": "^1.30.0",
@@ -34,15 +37,20 @@
     "tailwindcss": "^4.1.8"
   },
   "devDependencies": {
+    "@playwright/test": "^1.54.1",
+    "@types/jsdom": "^21.1.7",
     "@types/node": "^24.0.0",
     "@types/prismjs": "^1.26.5",
     "@types/react": "^19.1.7",
     "@types/react-dom": "^19.1.6",
+    "@vitest/ui": "^3.2.4",
     "dotenv": "^16.6.1",
     "eslint": "^9.29.0",
     "eslint-config-next": "^15.3.4",
     "http-server": "^14.1.1",
+    "jsdom": "^26.1.0",
     "tsx": "^4.19.2",
-    "typescript": "^5.8.3"
+    "typescript": "^5.8.3",
+    "vitest": "^3.2.4"
   }
 }
